@@ -1,5 +1,7 @@
-포괄 용돈제 웹 프로젝트는 React(프론트엔드), TypeScript(안정성 및 타입 지원), MySQL(데이터베이스)을 사용해 개발할 수 있습니다. 아래는 프로젝트 구조 설계 및 초기 코드를 제공하여 시작할 수 있도록 도와드리겠습니다.
-
+포괄 용돈제 웹 프로젝트는 React(프론트엔드), TypeScript(안정성 및 타입 지원), MySQL(데이터베이스)을 사용해 개발
+ npx ts-node src/server.ts
+ npm start
+220.126.12.105:4406
 1. 프로젝트 구조 설계
 폴더 구조
 plaintext
@@ -343,7 +345,7 @@ cd backend
 TypeScript로 작성된 백엔드 서버 실행:
 bash
 코드 복사
-npx ts-node src/server.ts
+# npx ts-node src/server.ts
 프론트엔드 개발 서버 실행
 frontend 디렉토리로 이동:
 bash
@@ -352,7 +354,8 @@ cd frontend
 React 개발 서버 실행:
 bash
 코드 복사
-npm start
+# npx ts-node src/server.ts
+# npm start
 7. 기본 연결 테스트
 프론트엔드 URL: http://localhost:3000
 백엔드 API URL: http://localhost:3001/api
