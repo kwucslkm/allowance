@@ -19,7 +19,7 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <h1>Allowance Tracker</h1>
+      <h1>Allowance System</h1>
       <ul>
         {allowances.map((allowance: any) => (
           <li key={allowance.id}>
