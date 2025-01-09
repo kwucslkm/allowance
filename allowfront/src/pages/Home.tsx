@@ -11,17 +11,23 @@ const Home: React.FC = () => {
 
   const handleAdd = async () => {
     const newAllowance = await createAllowance({
-      description: 'Sample Allowance',
-      amount: 50,
+      description: '커피 value',
+      amount: 5,
       date: new Date().toISOString(),
     });
     setAllowances((prev) => [...prev, newAllowance]);
   };
-  class Allowance  {
-    public id!: number;
-    public description!: string;
-    public amount!: number;
-    public date!: Date;
+  // class Allowance  {
+  //   public id!: number;
+  //   public description!: string;
+  //   public amount!: number;
+  //   public date!: Date;
+  // }
+  interface Allowance  {
+    id: number;
+    description: string;
+    amount: number;
+    date: Date;
   }
   return (
     <article>
