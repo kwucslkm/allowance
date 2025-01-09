@@ -1,11 +1,16 @@
 import React from 'react';
 import Home from './pages/Home.tsx';
-import Header from './pages/Header.tsx';
+import Header from './pages/layout/Header.tsx';
+import Nav from './pages/layout/Nav.tsx';
+import Footer from './pages/layout/Footer.tsx';
+
 
 const App: React.FC = () => {
   return <>
-  <Header />
-  <Home />
+    <Header />
+    <Nav />
+    <Home />
+    <Footer />
   </>;
 };
 

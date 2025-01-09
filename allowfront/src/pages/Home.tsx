@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchAllowances, createAllowance } from '../services/api.ts';
+import styles from  '../styles/Home.module.css';
 
 const Home: React.FC = () => {
   const [allowances, setAllowances] = useState([]);
@@ -16,19 +17,26 @@ const Home: React.FC = () => {
     });
     setAllowances((prev) => [...prev, newAllowance]);
   };
-
+  class Allowance  {
+    public id!: number;
+    public description!: string;
+    public amount!: number;
+    public date!: Date;
+  }
   return (
-    <div>
-      <h1>Allowance System</h1>
-      <ul>
-        {allowances.map((allowance: any) => (
-          <li key={allowance.id}>
-            {allowance.description}: ${allowance.amount} on {allowance.date}
-          </li>
-        ))}
-      </ul>
-      <button onClick={handleAdd}>Add Allowance</button>
-    </div>
+    <article>
+      <div className = {styles.home}>
+        
+        <ul>
+          {allowances.map((allowance: Allowance) => (
+            <li key={allowance.id}>
+              {allowance.description}: ${allowance.amount} on {allowance.date}
+            </li>
+          ))}
+        </ul>
+        지출 추가 : <button onClick={handleAdd}>Add Allowance</button>
+      </div>
+    </article>
   );
 };
 
