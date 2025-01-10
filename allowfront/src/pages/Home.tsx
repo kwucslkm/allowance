@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchAllowances, createAllowance } from '../services/api.ts';
-import styles from  '../styles/Home.module.css';
+import   '../styles/home.css';
 
 const Home: React.FC = () => {
   const [allowances, setAllowances] = useState([]);
@@ -11,8 +11,8 @@ const Home: React.FC = () => {
 
   const handleAdd = async () => {
     const newAllowance = await createAllowance({
-      description: '커피 value',
-      amount: 5,
+      description: '피자',
+      amount: 1,
       date: new Date().toISOString(),
     });
     setAllowances((prev) => [...prev, newAllowance]);
@@ -31,7 +31,7 @@ const Home: React.FC = () => {
   }
   return (
     <article>
-      <div className = {styles.home}>
+      <div className = "Home">
         
         <ul>
           {allowances.map((allowance: Allowance) => (

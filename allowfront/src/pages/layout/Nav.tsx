@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from '../../styles/Nav.module.css'; 
+import '../../styles/layout.css';
 
 const Nav: React.FC = () => {
   return (
     <nav>
-      <div className={styles.nav}>
+      <div className="nav">
         <ul>
           <left>
             <li><a href ="/">Home</a></li>
