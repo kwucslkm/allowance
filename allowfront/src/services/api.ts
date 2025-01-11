@@ -13,7 +13,10 @@ export const createAllowance = async (
   data: { 
     description: string; 
     amount: number; 
-    date: string 
+    date: string;
+    category:string;
+    store:string;
+    memberId:number;
   }) => {
   const response = await api.post('/allowances', data);
   return response.data;

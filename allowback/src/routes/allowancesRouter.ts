@@ -9,8 +9,8 @@ router.get('/', async (_, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { description, amount, date } = req.body;
-  const allowance = await Allowance.create({ description, amount, date });
+  const { category, store, description, amount, date, memberId } = req.body;
+  const allowance = await Allowance.create({ category, store, description, amount, date, memberId });
   res.json(allowance);
 });
 

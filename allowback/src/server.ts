@@ -15,7 +15,7 @@ app.use('/api/allowances', allowancesRouter);
 const port = process.env.PORT || 3000;  // .env에서 PORT 값을 찾고 없으면 기본값 3000 사용
 sequelize.sync().then(() => {
   app.listen(port, () => {
-    console.log('Server is running on http://localhost:3001');
+    console.log('VICTORY!!! Server is running on http://localhost:3001');
   });
 }).catch(err => {
   console.error('Error syncing database: ', err);

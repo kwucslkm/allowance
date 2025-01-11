@@ -22,4 +22,14 @@ const sequelize = new Sequelize(
   }
 );
 
+// Sequelize CLI용 설정 객체 생성
+const config = {
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  host: process.env.DB_HOST,
+  dialect: process.env.DB_DIALECT || 'mysql',
+};
+
 export default sequelize;
+export { config }; // 추가
