@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchAllowances, createAllowance } from '../services/api.ts';
 import '../styles/home.css';
-import { Allowance } from './Allowance'; // Allowance 클래스 임포트
+import { Allowance } from './AllowanceType.ts'; // Allowance 클래스 임포트
 
 const Home: React.FC = () => {
   const [allowances, setAllowances] = useState<Allowance[]>([]);
