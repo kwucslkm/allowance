@@ -2,19 +2,15 @@
   /* border: 1px solid; */
   color: yellow;
   background-color: black;
-  
 }
-
 .footer {
   background-color: wheat;
   color: blueviolet;
   text-align: center;
   /* float: left; */
 }
-
 .nav {
   background-color: powderblue;
-  
 }
 .nav ul {
   color: black;
@@ -26,5 +22,15 @@
 .nav li {
   display: inline-block;
   padding: 10px;
+}
+.mainCss {
+  text-align: center;
+}
+.login-form {
+  border : solid green 1px;
+  width: 600px;
+  margin : 1px;
+  padding : 15px;
+  text-align: center;
 
 }
