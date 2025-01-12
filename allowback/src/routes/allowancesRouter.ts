@@ -1,5 +1,6 @@
 import express from 'express';
 import Allowance from '../models/Allowance';
+import Member from './../models/Member';
 
 const router = express.Router();
 
@@ -12,6 +13,28 @@ router.post('/', async (req, res) => {
   const { category, store, description, amount, date, memberId } = req.body;
   const allowance = await Allowance.create({ category, store, description, amount, date, memberId });
   res.json(allowance);
+});
+
+// 로그인 체크
+router.post('/loginCheck', async (req, res) => {
+  const { userEmail, password } = req.body;
+
+  try {
+    const user = await Member.findOne({
+      where: {
+        userEmail: userEmail,
+        password: password,
+      },
+    });
+
+    if (user) {
+      res.status(200).json({ success: true, message: 'Login successful', user });
+    } else {
+      res.status(401).json({ success: false, message: 'Invalid email or password' });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error', error });
+  }
 });
 
 export default router;

@@ -4,19 +4,17 @@ interface LoginFormProps {
   onSubmit: (id: string, password: string) => void; // 로그인 제출 이벤트
   onCancel: () => void; // 로그인 취소 이벤트
 }
-
 const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, onCancel }) => {
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLoginCheck = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const userEmail = formData.get('userEmail') as string;
     const password = formData.get('password') as string;
     onSubmit(userEmail, password);
   };
-
   return (
     <div className="login-form">
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={handleLoginCheck}>
         ID:&nbsp;
         <input type="text" name="userEmail" required />&nbsp;
         Password:&nbsp;

@@ -21,5 +21,14 @@ export const createAllowance = async (
   const response = await api.post('/allowances', data);
   return response.data;
 };
+export const selecLoginCheck = async (
+  data : {
+    userEmail: string;
+    password: string;
+  }
+) => {
+  const response = await api.post('/loginCheck', data);
+  return response.data;
+};
 
 export default api;

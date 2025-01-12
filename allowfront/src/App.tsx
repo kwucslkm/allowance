@@ -6,15 +6,33 @@
   import Footer from './pages/layout/Footer.tsx';
   import Main from './pages/Main.tsx';
   import LoginForm from './pages/control/LoginForm.tsx';
+  import { selecLoginCheck } from './services/api.ts';
 
 
   const App: React.FC = () => {
     const [loginYn, setLoginYn] = useState(false); // 로그인 여부 상태
     const [showLoginForm, setShowLoginForm] = useState(false); // 로그인 폼 표
     let mainPageView = null;
-
+    const loginCheck = async (userEmail: string, password: string) => {
+      console.log("userEmail, password = > ",userEmail,password);
+      const memberLoginCheck = await selecLoginCheck({
+        userEmail,
+        password,
+      });
+      // const memberLoginCheck = true;/
+      if(memberLoginCheck != null){
+        setLoginYn(true);
+        setShowLoginForm(false);
+      }
+      
+    };
     if (showLoginForm){ 
-      mainPageView = <LoginForm></LoginForm>
+      mainPageView = <LoginForm 
+        onSubmit={(_userEmail,_password)=>{
+          const userEmail = _userEmail;
+          const password = _password;
+          loginCheck(userEmail,password);
+      }}></LoginForm>
     }else if(loginYn){
       mainPageView = <Home></Home>
     } else {

@@ -44,33 +44,31 @@ const Home: React.FC = () => {
         <input type="hidden" name="memberId" value={1}/>
         <input type="submit" alue="지출입력" />
       </form>
-        
-          <h3>지출내역</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Date</th>
-                <th>category</th>
-                <th>store</th>
-                <th>Description</th>
-                <th>Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[...allowances].reverse().map((allowance: Allowance, index: number) => (
-                <tr key={allowance.id}>
-                  <td>{index + 1}</td>
-                  <td>{new Date(allowance.date).toLocaleDateString('ko-KR')}</td>
-                  <td>{allowance.category}</td>
-                  <td>{allowance.store}</td>
-                  <td>{allowance.description}</td>
-                  <td>{allowance.amount}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-    
+      <h3>지출내역</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>category</th>
+            <th>store</th>
+            <th>Description</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {[...allowances].reverse().map((allowance: Allowance, index: number) => (
+            <tr key={allowance.id}>
+              <td>{index + 1}</td>
+              <td>{new Date(allowance.date).toLocaleDateString('ko-KR')}</td>
+              <td>{allowance.category}</td>
+              <td>{allowance.store}</td>
+              <td>{allowance.description}</td>
+              <td>{allowance.amount}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>  
     </div>
   );
 };
