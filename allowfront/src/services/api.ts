@@ -22,13 +22,27 @@ export const createAllowance = async (
   return response.data;
 };
 export const selecLoginCheck = async (
-  data : {
+  data: {
     userEmail: string;
     password: string;
   }
-) => {
-  const response = await api.post('/loginCheck', data);
-  return response.data;
+) => {  
+  try {
+    const response = await api.post('/allowances/loginCheck', data);
+    return response.data;  // 성공 시 response.data 반환
+  } catch (error) {
+    // 에러가 발생한 경우
+    if (axios.isAxiosError(error)) {
+      // AxiosError일 경우
+      alert(error.response?.data?.message || 'Unknown error');
+      return false;
+     
+      // throw new Error(error.response?.data?.message || 'Unknown error');  // 에러 던지기
+    }
+    throw error;  // 다른 종류의 에러는 다시 던지기
+  }
 };
+
+
 
 export default api;

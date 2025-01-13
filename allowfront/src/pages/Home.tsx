@@ -10,7 +10,8 @@ const Home: React.FC = () => {
     fetchAllowances().then(setAllowances);
   }, []);
 
-  const handleAdd = async (category: string, desc: string, store: string, amount: number, memberId: number) => {
+  const handleAdd = async (category: string, desc: string, store: string, 
+                           amount: number, memberId: number) => {
     const newAllowance = await createAllowance({
       category,
       description: desc,

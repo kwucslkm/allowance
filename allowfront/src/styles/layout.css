@@ -28,9 +28,10 @@
 }
 .login-form {
   border : solid green 1px;
-  width: 600px;
+  width: 400px;
   margin : 1px;
   padding : 15px;
   text-align: center;
-
+  
+  justify-content: center;
 }

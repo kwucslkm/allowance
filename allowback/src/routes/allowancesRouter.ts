@@ -16,25 +16,25 @@ router.post('/', async (req, res) => {
 });
 
 // 로그인 체크
-router.post('/loginCheck', async (req, res) => {
-  const { userEmail, password } = req.body;
+  router.post('/loginCheck', async (req, res) => {
+    const { userEmail, password } = req.body;
 
-  try {
-    const user = await Member.findOne({
-      where: {
-        userEmail: userEmail,
-        password: password,
-      },
-    });
+    try {
+      const user = await Member.findOne({
+        where: {
+          userEmail: userEmail,
+          password: password, 
+        },
+      });
 
-    if (user) {
-      res.status(200).json({ success: true, message: 'Login successful', user });
-    } else {
-      res.status(401).json({ success: false, message: 'Invalid email or password' });
+      if (user) {
+        res.status(200).json({ success: true, message: '로그인 성공!!!', user });
+      } else {
+        res.status(401).json({ success: false, message: '로그인 실패 아이디 또는 비밀번호가 틀렸습니다.' });
+      }
+    } catch (error) {
+      res.status(500).json({ success: false, message: 'Server error', error });
     }
-  } catch (error) {
-    res.status(500).json({ success: false, message: 'Server error', error });
-  }
-});
+  });
 
-export default router;
+  export default router;

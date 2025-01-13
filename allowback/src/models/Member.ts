@@ -20,7 +20,7 @@ Member.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    memberEmail: {
+    userEmail: {
       type: DataTypes.STRING(50),
       allowNull: false,
       unique: true,

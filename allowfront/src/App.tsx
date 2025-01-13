@@ -19,10 +19,15 @@
         userEmail,
         password,
       });
-      // const memberLoginCheck = true;/
-      if(memberLoginCheck != null){
+      console.log(memberLoginCheck);
+      if(memberLoginCheck.success){
         setLoginYn(true);
         setShowLoginForm(false);
+        alert(memberLoginCheck.message);
+      }else {
+        alert('다시 확인 하시고 시도 하세요');
+        // setShowLoginForm(true);
+
       }
       
     };
