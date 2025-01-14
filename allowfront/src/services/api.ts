@@ -36,13 +36,10 @@ export const selecLoginCheck = async (
       // AxiosError일 경우
       alert(error.response?.data?.message || 'Unknown error');
       return false;
-     
       // throw new Error(error.response?.data?.message || 'Unknown error');  // 에러 던지기
     }
     throw error;  // 다른 종류의 에러는 다시 던지기
   }
 };
-
-
 
 export default api;

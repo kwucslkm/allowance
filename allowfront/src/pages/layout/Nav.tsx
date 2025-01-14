@@ -1,8 +1,11 @@
   import React from 'react';
   import '../../styles/layout.css';
   
-
-  const Nav: React.FC = (props) => {
+  interface NavProps {
+    onLoginClick():void;
+    onJoinClick():void;
+  }
+  const Nav: React.FC<NavProps> = ({onLoginClick, onJoinClick}) => {
 
     return (
       <nav>
@@ -13,10 +16,13 @@
               <li><a href ="/list">List</a></li>
             </span>
             <span className="right">
-              <li><a href ="/save">Join</a></li>
+              <li><a href ="/join" onClick={e=>{
+                e.preventDefault();
+                onJoinClick();
+              }}>Join</a></li>
               <li><a href ="/login" onClick={e=>{
                 e.preventDefault();
-                props.onLoginClick();
+                onLoginClick();
               }}>Login</a></li>
             </span>
           </ul>

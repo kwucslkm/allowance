@@ -1,14 +1,16 @@
 {
   "dependencies": {
+    "axios": "^1.7.9",
     "dotenv": "^16.4.7"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.1.0",
+    "@types/axios": "^0.14.4",
     "concurrently": "^9.1.2"
   },
   "scripts": {
     "start:allowback": "npx ts-node allowback/src/server.ts",
     "start:allowfront": "npm start --prefix allowfront",
     "start:all": "concurrently \"npm run start:allowback\" \"npm run start:allowfront\""
-    
   }
 }
