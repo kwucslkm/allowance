@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/layout.css';
 
 interface JoinFormProps {
-  onSubmit: (id: string, password: string) => void; // 로그인 제출 이벤트
+  onSubmit: (id: string, password: string, mobile:string,nickname:string,name:string,birthday:string,city:string) => void; // 로그인 제출 이벤트
   
 }
 const JoinForm: React.FC<JoinFormProps> = ({ onSubmit }) => {

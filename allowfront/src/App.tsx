@@ -7,8 +7,8 @@
   import Main from './pages/Main';
   import LoginForm from './pages/control/LoginForm';
   import { selecLoginCheck } from './services/api';
-import JoinForm from './pages/control/JoinForm';
-import { name } from './../node_modules/jiti/dist/babel';
+  import JoinForm from './pages/control/JoinForm';
+
 
 
   const App: React.FC = () => {
