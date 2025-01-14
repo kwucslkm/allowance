@@ -3,12 +3,12 @@ import sequelize from '../db';
 
 class Allowance extends Model {
   public id!: number;
-  public category!: string;  // 'category' 속성 추가
-  public store!: string;     // 'store' 속성 추가
+  public category!: string;
+  public store!: string;
   public description!: string;
   public amount!: number;
-  public date!: string;      // 또는 Date 타입으로 설정
-  public memberId!: number; // 'memberId' 속성 추가
+  public date!: string; 
+  public memberId!: number;
 }
 
 Allowance.init(

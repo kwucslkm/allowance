@@ -7,22 +7,18 @@
   import Main from './pages/Main';
   import LoginForm from './pages/control/LoginForm';
   import { selecLoginCheck, joinMemberCreate } from './services/api';
-  
   import JoinForm from './pages/control/JoinForm';
-
-
 
   const App: React.FC = () => {
     const [loginYn, setLoginYn] = useState(false); // 로그인 여부 상태
     const [showLoginForm, setShowLoginForm] = useState(false); // 로그인 폼 표
-    const [showJoinForm, setshowJoinForm] = useState(false); // 로그인 폼 표
+    const [showJoinForm, setShowJoinForm] = useState(false); // 로그인 폼 표
     let mainPageView = null;
     // 로그인 
     const loginCheck = async (userEmail: string, password: string) => {
       console.log("userEmail, password = > ",userEmail,password);
       const memberLoginCheck = await selecLoginCheck({
-        userEmail,
-        password,
+        userEmail, password,
       });
       console.log("memberLoginCheck= " ,memberLoginCheck);
       if(memberLoginCheck.success){
@@ -38,8 +34,18 @@
     const joinMember = async (userEmail:string,password:string,mobile:string,
                               nickname:string,name:string,birthday:string,city:string) =>{
       const memberCreateResult = await joinMemberCreate({
-        userEmail,password,mobile,nickname,name,birthday,city
-      })
+        userEmail,password,mobile,nickname,name,birthday,city,
+      });
+      console.log("memberCreateResult = ",memberCreateResult);
+      if (memberCreateResult.success){
+        alert('회원가입 되었습니다. Join Success');
+        setShowJoinForm(false);
+        setShowLoginForm(true);
+      }else{
+        alert(memberCreateResult.error);
+        setShowJoinForm(true);
+        
+      }
     };
     if (showJoinForm){
       mainPageView = <JoinForm onSubmit={(_userEmail, _password, _mobile, _nickname, _name, _birthday,_city)=>{
@@ -71,7 +77,7 @@
       <Nav onLoginClick={()=>{
         setShowLoginForm(true);
       }} onJoinClick={()=>{
-        setshowJoinForm(true);
+        setShowJoinForm(true);
       }}></Nav>
       {mainPageView}
       <Footer></Footer>

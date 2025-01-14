@@ -31,9 +31,43 @@ export const joinMemberCreate = async (
     birthday : string;
     city : string;
   }) => {
-  const response = await api.post('/allowances/memberCreate', data);
-  return response.data;
+  try{
+    // 입력값 유효성 검사
+    if (!data.userEmail || !data.password || !data.nickname || !data.birthday) {
+    throw new Error('필수 입력값이 누락되었습니다.');
+    }
+
+    // 이메일(아이디) 형식 검사
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.userEmail)) {
+      throw new Error('올바른 이메일 형식이 아닙니다.');
+    }
+
+    // 휴대폰 번호 형식 검사
+    const mobileRegex = /^01[0-9]-?[0-9]{3,4}-?[0-9]{4}$/;
+    if (!mobileRegex.test(data.mobile)) {
+      throw new Error('올바른 휴대폰 번호 형식이 아닙니다.');
+    }
+    const response = await api.post('/allowances/memberCreate', data);
+    return{
+      success:true,
+      data:response.data
+    }
+  }catch(error){
+    if(error instanceof Error){
+      return{
+        success:false,
+        error:error.message
+      }
+    }
+  };
+  // 기타 예상치 못한 에러
+  return {
+    success: false,
+    error: '회원가입 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'
+  };
 };
+
 export const selecLoginCheck = async (
   data: {
     userEmail: string;
