@@ -21,6 +21,19 @@ export const createAllowance = async (
   const response = await api.post('/allowances', data);
   return response.data;
 };
+export const joinMemberCreate = async (
+  data: { 
+    userEmail : string;
+    password : string;
+    mobile : string;
+    nickname : string;
+    name : string;
+    birthday : string;
+    city : string;
+  }) => {
+  const response = await api.post('/allowances/memberCreate', data);
+  return response.data;
+};
 export const selecLoginCheck = async (
   data: {
     userEmail: string;

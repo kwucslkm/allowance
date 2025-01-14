@@ -6,7 +6,8 @@
   import Footer from './pages/layout/Footer';
   import Main from './pages/Main';
   import LoginForm from './pages/control/LoginForm';
-  import { selecLoginCheck } from './services/api';
+  import { selecLoginCheck, joinMemberCreate } from './services/api';
+  
   import JoinForm from './pages/control/JoinForm';
 
 
@@ -16,6 +17,7 @@
     const [showLoginForm, setShowLoginForm] = useState(false); // 로그인 폼 표
     const [showJoinForm, setshowJoinForm] = useState(false); // 로그인 폼 표
     let mainPageView = null;
+    // 로그인 
     const loginCheck = async (userEmail: string, password: string) => {
       console.log("userEmail, password = > ",userEmail,password);
       const memberLoginCheck = await selecLoginCheck({
@@ -32,6 +34,13 @@
         // setShowLoginForm(true);
       }
     };
+    // 회원 가입
+    const joinMember = async (userEmail:string,password:string,mobile:string,
+                              nickname:string,name:string,birthday:string,city:string) =>{
+      const memberCreateResult = await joinMemberCreate({
+        userEmail,password,mobile,nickname,name,birthday,city
+      })
+    };
     if (showJoinForm){
       mainPageView = <JoinForm onSubmit={(_userEmail, _password, _mobile, _nickname, _name, _birthday,_city)=>{
         const userEmail = _userEmail;
@@ -41,7 +50,7 @@
         const name = _name;
         const birthday = _birthday;
         const city = _city;
-        // joinMember(userEmail,password,mobile,nickname,name,birthday,city);
+        joinMember(userEmail,password,mobile,nickname,name,birthday,city);
       }}></JoinForm>
 
     }else if (showLoginForm){ 

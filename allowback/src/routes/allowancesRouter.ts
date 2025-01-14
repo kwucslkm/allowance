@@ -14,6 +14,11 @@ router.post('/', async (req, res) => {
   const allowance = await Allowance.create({ category, store, description, amount, date, memberId });
   res.json(allowance);
 });
+router.post('/memberCreate', async (req, res) => { // 회원 가입
+  const { userEmail,password,mobile,nickname,name,birthday,city } = req.body;
+  const member = await Member.create({ userEmail,password,mobile,nickname,name,birthday,city });
+  res.json(member);
+});
 
 // 로그인 체크
   router.post('/loginCheck', async (req, res) => {
