@@ -13,7 +13,7 @@
           <ul>
             <span className="left">
               <li><a href ="/">Home</a></li>
-              <li><a href ="/list">List</a></li>
+              <li><a href ="/list">MemberList</a></li>
             </span>
             <span className="right">
               <li><a href ="/join" onClick={e=>{
