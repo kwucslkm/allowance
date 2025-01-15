@@ -1,13 +1,14 @@
 import axios from 'axios';
+import Member from './../../../allowback/src/models/Member';
 
 const api = axios.create({
   baseURL: 'http://localhost:3001/api',
 });
 
-export const fetchAllowances = async () => {
-  const response = await api.get('/allowances');
-  return response.data;
-};
+// export const fetchAllowances = async () => {
+//   const response = await api.get('/allowances');
+//   return response.data;
+// };
 
 export const createAllowance = async (
   data: { 
@@ -87,6 +88,11 @@ export const selecLoginCheck = async (
     }
     throw error;  // 다른 종류의 에러는 다시 던지기
   }
+};
+export const fetchAllowances = async (memberId:number) => {
+  console.log("memberId  = > ",memberId);
+  const response = await api.post('/allowances/findAlloanceByMemberId');
+  return response.data;
 };
 
 export default api;

@@ -16,32 +16,51 @@
     let mainPageView = null;
     // 로그인 
     const loginCheck = async (userEmail: string, password: string) => {
-      console.log("userEmail, password = > ",userEmail,password);
+      // console.log("보낼 userEmail, password = > ",userEmail,password);
       const memberLoginCheck = await selecLoginCheck({
         userEmail, password,
       });
-      console.log("memberLoginCheck= " ,memberLoginCheck);
+      // console.log("memberLoginCheck= " ,memberLoginCheck);
+      // console.log("user id = ", memberLoginCheck.user.id);
+      // 유저 정보 타입
+      interface User {
+        id: number;
+        birthday: string;
+        city:string;
+        createAt:string;
+        joinDate:string;
+        mobile:string;
+        nickname:string;
+        password:string;
+        updatedAt:string;
+        name: string;
+        useremail: string;
+      }
+      // 로그인 체크 응답 타입
+      interface LoginCheckResponse {
+        success: boolean;
+        user: User;           // 성공 시 유저 정보
+        message?: string;      // 실패 시 메시지
+      }
+      
+      const handleLogin = (memberLoginCheck:LoginCheckResponse) => {
+        sessionStorage.setItem('memberInfo',JSON.stringify(memberLoginCheck.user));
+      };
       if(memberLoginCheck.success){
         setLoginYn(true);
         setShowLoginForm(false);
-        const handleLogin = (userId: string) => {
-          sessionStorage.setItem('userId', userId);
-          console.log('User ID stored in session:', userId);
-        };
-        // 세션 읽기
-        // const getUserId = () => {
-        //   return sessionStorage.getItem('userId');
-        // };
-        
-        // const userId = getUserId();
-        // console.log('Logged-in User ID:', userId);
-        
-        // alert(memberLoginCheck.message);
-        // 로그아웃 시 아이디 제거:
-        // const handleLogout = () => {
-        //   sessionStorage.removeItem('userId');
-        //   console.log('User ID removed from session');
-        // };
+        handleLogin(memberLoginCheck);      
+      const userInfo = sessionStorage.getItem('memberInfo');
+      if (userInfo) {
+        // `userInfo`가 null이 아니므로 안전하게 JSON.parse 사용
+        console.log('Logged-in UserInfo.id:', JSON.parse(userInfo).id);
+      } 
+      alert(memberLoginCheck.message);
+      //로그아웃 시 아이디 제거:
+      // const handleLogout = () => {
+      //   sessionStorage.removeItem('memberInfo');
+      //   console.log('memberInfo removed from session');
+      // };
         
       }else {
         alert('다시 확인 하시고 시도 하세요');

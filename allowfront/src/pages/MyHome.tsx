@@ -5,11 +5,40 @@ import { Allowance } from './AllowanceType'; // Allowance 클래스 임포트
 
 const MyHome: React.FC = () => {
   const [allowances, setAllowances] = useState<Allowance[]>([]);
+  const [memberId, setMemberId] = useState(0);
 
   useEffect(() => {
-    fetchAllowances().then(setAllowances);
-  }, []);
+    const fetchData = async () => {
+      const userInfo = sessionStorage.getItem('memberInfo');
+      if (userInfo) {
+        try {
+          const parsedUserInfo = JSON.parse(userInfo);
+          setMemberId(parsedUserInfo.id); // ID 값 설정
+          console.log("session memberId 1 = > ", parsedUserInfo.id);
+        } catch (error) {
+          console.error("Error parsing user info from session storage:", error);
+        }
+      }
+    };
 
+    fetchData(); // 세션 데이터 처리
+  }, []);
+  useEffect(() => {
+    const fetchAllowancesData = async () => {
+      if (memberId) {
+        try {
+          const findAllowancesByMemberId = await fetchAllowances(Number(memberId));
+          setAllowances(findAllowancesByMemberId); // allowances 상태 업데이트
+        } catch (error) {
+          console.error("Error fetching allowances:", error);
+        }
+      }
+    };
+
+    fetchAllowancesData(); // memberId가 변경될 때마다 실행
+  }, [memberId]); // memberId가 변경될 때마다 호출
+
+    
   const handleAdd = async (category: string, desc: string, store: string, 
                           amount: number, memberId: number) => {
     const newAllowance = await createAllowance({
@@ -48,7 +77,7 @@ const MyHome: React.FC = () => {
         <input type="text" name="description" placeholder="구매 품목(item)을 입력하세요" />
         <input type="text" name="store" placeholder="지출처(store)를 입력하세요" />
         <input type="number" name="amount" placeholder="지출 금액을 입력하세요" />
-        <input type="hidden" name="memberId" value={1}/>
+        <input type="hidden" name="memberId" value={memberId}/>
         <input type="submit" value="지출입력" />
       </form>
       <h3>지출내역</h3>
