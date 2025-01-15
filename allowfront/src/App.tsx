@@ -1,10 +1,10 @@
   import React from 'react';
   import {useState} from 'react';
-  import Home from './pages/Home';
+  import MyHome from './pages/MyHome';
   import Header from './pages/layout/Header';
   import Nav from './pages/layout/Nav';
   import Footer from './pages/layout/Footer';
-  import Main from './pages/Main';
+  import Main from './pages/layout/Main';
   import LoginForm from './pages/control/LoginForm';
   import { selecLoginCheck, joinMemberCreate } from './services/api';
   import JoinForm from './pages/control/JoinForm';
@@ -47,7 +47,7 @@
         
       }
     };
-    if (showJoinForm){
+    if (showJoinForm){ // 회원가입 폼
       mainPageView = <JoinForm onSubmit={(_userEmail, _password, _mobile, _nickname, _name, _birthday,_city)=>{
         const userEmail = _userEmail;
         const password = _password;
@@ -68,13 +68,14 @@
         } } 
       ></LoginForm>
     }else if(loginYn){
-      mainPageView = <Home></Home>
+      mainPageView = <MyHome></MyHome>
     } else {
       mainPageView = <Main></Main>
     }
     return <>
       <Header />
       <Nav onLoginClick={()=>{
+        setShowJoinForm(false);
         setShowLoginForm(true);
       }} onJoinClick={()=>{
         setShowJoinForm(true);

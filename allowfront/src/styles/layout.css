@@ -26,12 +26,45 @@
 .mainCss {
   text-align: center;
 }
-.login-form {
+.login-form, .join-form {
   border : solid green 1px;
-  width: 400px;
-  margin : 1px;
+  border-radius: 3px;
+  width: 300px;
+  margin : 1px auto;
   padding : 15px;
   text-align: center;
   
   justify-content: center;
+}
+.login-form input, .join-form input {
+  border-radius: 2px;
+  float: right;
+}
+.login-form button, .join-form button {
+  background-color: lightseagreen;
+  color: white;
+  border : solid 1px lightseagreen;
+  padding : 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+
+.mainCss {
+  border : solid lightgray 1px;
+  width: 600px;
+  margin : 0 auto;
+  border-radius: 3px;
+  /* background-color: antiquewhite; */
+}
+.mainCss .info {
+  border : solid blue 1px;
+  background-color: antiquewhite;
+  border-radius: 3px;
+  width: 400px;
+  margin: 10px auto;
+
+  /* display: flex;
+  justify-content: center; */
 }

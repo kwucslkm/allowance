@@ -3,7 +3,7 @@ import { fetchAllowances, createAllowance } from '../services/api';
 import '../styles/home.css';
 import { Allowance } from './AllowanceType'; // Allowance 클래스 임포트
 
-const Home: React.FC = () => {
+const MyHome: React.FC = () => {
   const [allowances, setAllowances] = useState<Allowance[]>([]);
 
   useEffect(() => {
@@ -80,4 +80,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default MyHome;

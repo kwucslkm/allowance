@@ -19,11 +19,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
         <form onSubmit={handleLoginCheck}>
           <p>
             ID:&nbsp;
-            <input type="text" name="userEmail" required />&nbsp;
+            <input type="text" name="userEmail" required placeholder='아이디 입력'/>&nbsp;
           </p>
           <p>
             Password:&nbsp;
-            <input type="password" name="password" required />&nbsp;
+            <input type="password" name="password" required placeholder='비밀번호 입력'/>&nbsp;
           </p>
           <button type="submit">로그인</button>&nbsp;
           

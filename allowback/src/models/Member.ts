@@ -40,6 +40,7 @@ Member.init(
       unique: true,
     },
     name: {
+      
       type: DataTypes.STRING(30),
       allowNull: true,
     },

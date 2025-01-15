@@ -5,19 +5,44 @@ import Member from './../models/Member';
 const router = express.Router();
 
 router.get('/', async (_, res) => {
-  const allowances = await Allowance.findAll();
-  res.json(allowances);
+  try{
+    const allowances = await Allowance.findAll();
+    res.json(allowances);
+  } catch (error) {
+    console.error('Error creating allowance:', error);
+    res.status(500).json({ error: 'Failed to create allowance' });
+  }
 });
+interface AllowanceRequest {
+  category?: string; // 선택적 필드
+  store?: string;    // 선택적 필드
+  description: string;
+  amount: number;
+  date?: string;     // 선택적 필드
+  memberId: string;
+}
 
 router.post('/', async (req, res) => {
-  const { category, store, description, amount, date, memberId } = req.body;
-  const allowance = await Allowance.create({ category, store, description, amount, date, memberId });
-  res.json(allowance);
+  try{
+    const { category, store, description, amount, date, memberId } = req.body;
+    
+    const allowance = await Allowance.create({ category, store, description, amount, date, memberId });
+    res.json(allowance);
+  }catch(error){
+    console.error('Error creating allowance:', error);
+    res.status(500).json({ error: 'Failed to create allowance' });
+  }
 });
 router.post('/memberCreate', async (req, res) => { // 회원 가입
-  const { userEmail,password,mobile,nickname,name,birthday,city } = req.body;
-  const member = await Member.create({ userEmail,password,mobile,nickname,name,birthday,city });
-  res.json(member);
+  try{
+
+    const { userEmail,password,mobile,nickname,name,birthday,city } = req.body;
+    const member = await Member.create({ userEmail,password,mobile,nickname,name,birthday,city });
+    res.json(member);
+  }catch(error){
+    console.error('Error creating allowance:', error);
+    res.status(500).json({ error: 'Failed to create allowance' });
+  }
 });
 
 // 로그인 체크

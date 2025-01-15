@@ -20,7 +20,7 @@ const JoinForm: React.FC<JoinFormProps> = ({ onSubmit }) => {
   };
   return (
     <div>
-      <div className="login-form">
+      <div className="join-form">
         <form onSubmit={handleLoginCheck}>
           <p>
             ID:&nbsp;
@@ -50,7 +50,7 @@ const JoinForm: React.FC<JoinFormProps> = ({ onSubmit }) => {
           city:&nbsp;
             <input type="text" name="city" required />&nbsp;
           </p>
-          <button type="submit">가입</button>&nbsp;
+          <button type="submit">가입하기</button>&nbsp;
           
         </form>
       </div>
