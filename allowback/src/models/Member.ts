@@ -1,5 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../db'; // Sequelize 인스턴스를 가져오는 경로를 조정하세요.
+import sequelize from '../db'; // 
+import Allowance from './Allowance';
 
 class Member extends Model {
   public id!: number;
@@ -64,5 +65,5 @@ Member.init(
     // timestamps: false, // createdAt, updatedAt을 사용하지 않을 경우
   }
 );
-
+Member.hasMany(Allowance, { foreignKey: 'memberId' });
 export default Member;
