@@ -69,20 +69,19 @@ router.post('/memberCreate', async (req, res) => { // 회원 가입
   
   // 아이디로 지출내역 select 해오기
   router.post('/findAlloanceByMemberId', async (req, res) => {
-    const {memberId} = req.body;
-
+    const  {memberId}  = req.body;
+    console.log("memberId to db = >",memberId);
     try {
-      const Allowances = await Allowance.findOne({
+      const Allowances = await Allowance.findAll({
         where: {
-          memberId: memberId,
-          
+            memberId: memberId,
         },
       });
-
+      console.log("회원지출내역조회 1 ",Allowances);
       if (Allowances) {
-        res.status(200).json({ success: true, message: '조회 성공!!!', Allowances });
+        res.status(200).json({ success: true, message: '회원지출내역 조회 성공!!!', Allowances });
       } else {
-        res.status(401).json({ success: false, message: '로그인 실패 아이디 또는 비밀번호가 틀렸습니다.' });
+        res.status(401).json({ success: false, message: '지출 내역 조회 실패' });
       }
     } catch (error) {
       res.status(500).json({ success: false, message: 'Server error', error });

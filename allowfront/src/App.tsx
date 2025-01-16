@@ -43,25 +43,24 @@
         message?: string;      // 실패 시 메시지
       }
       
-      const handleLogin = (memberLoginCheck:LoginCheckResponse) => {
+      const handleLogin = (memberLoginCheck:LoginCheckResponse) => { 
         sessionStorage.setItem('memberInfo',JSON.stringify(memberLoginCheck.user));
       };
       if(memberLoginCheck.success){
-        setLoginYn(true);
-        setShowLoginForm(false);
-        handleLogin(memberLoginCheck);      
+        handleLogin(memberLoginCheck);  // 로그인에 성공했으니 세션스토리지에 user 정보를 넣는 함수 호출
+        setShowLoginForm(false);//로그인 폼은 닫는다.
+        setLoginYn(true);//로그인이 성공한 상태이므로 myHome을 연다
       const userInfo = sessionStorage.getItem('memberInfo');
       if (userInfo) {
         // `userInfo`가 null이 아니므로 안전하게 JSON.parse 사용
         console.log('Logged-in UserInfo.id:', JSON.parse(userInfo).id);
       } 
-      alert(memberLoginCheck.message);
+      alert(memberLoginCheck.message);//로그인 성공
       //로그아웃 시 아이디 제거:
       // const handleLogout = () => {
       //   sessionStorage.removeItem('memberInfo');
       //   console.log('memberInfo removed from session');
       // };
-        
       }else {
         alert('다시 확인 하시고 시도 하세요');
         // setShowLoginForm(true);

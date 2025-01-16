@@ -27,8 +27,18 @@ const MyHome: React.FC = () => {
     const fetchAllowancesData = async () => {
       if (memberId) {
         try {
-          const findAllowancesByMemberId = await fetchAllowances(Number(memberId));
-          setAllowances(findAllowancesByMemberId); // allowances 상태 업데이트
+          const findAllowancesByMemberId = await fetchAllowances(memberId);
+          // const findAllow = [];
+          // for (let i = 0 ; i<findAllowancesByMemberId.Allowances.length;i++){
+          //   findAllow.push(findAllowancesByMemberId.Allowances[i]);
+          // }
+          const findAllow = findAllowancesByMemberId.Allowances.map((oneAllowance:Allowance) => {
+            return oneAllowance; // 각 allowance를 그대로 반환
+          });
+
+          
+          console.log(findAllow);
+          setAllowances(findAllow); // allowances 상태 업데이트
         } catch (error) {
           console.error("Error fetching allowances:", error);
         }

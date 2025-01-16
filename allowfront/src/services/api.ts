@@ -77,6 +77,7 @@ export const selecLoginCheck = async (
 ) => {  
   try {
     const response = await api.post('/allowances/loginCheck', data);
+    console.log("api ddan response 2 ",response);
     return response.data;  // 성공 시 response.data 반환
   } catch (error) {
     // 에러가 발생한 경우
@@ -90,9 +91,20 @@ export const selecLoginCheck = async (
   }
 };
 export const fetchAllowances = async (memberId:number) => {
-  console.log("memberId  = > ",memberId);
-  const response = await api.post('/allowances/findAlloanceByMemberId');
-  return response.data;
+  try{
+    console.log("memberId to router = > ",memberId);
+    const response = await api.post('/allowances/findAlloanceByMemberId',{memberId});
+    return response.data;
+  }catch(error){
+    // 에러가 발생한 경우
+    if (axios.isAxiosError(error)) {
+      // AxiosError일 경우
+      alert(error.response?.data?.message || 'Unknown error');
+      return false;
+      // throw new Error(error.response?.data?.message || 'Unknown error');  // 에러 던지기
+    }
+    throw error;  // 다른 종류의 에러는 다시 던지기
+  }
 };
 
 export default api;
