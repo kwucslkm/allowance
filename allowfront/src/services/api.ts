@@ -39,10 +39,10 @@ export const joinMemberCreate = async (
     }
 
     // 이메일(아이디) 형식 검사
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.userEmail)) {
-      throw new Error('올바른 이메일 형식이 아닙니다.');
-    }
+    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // if (!emailRegex.test(data.userEmail)) {
+    //   throw new Error('올바른 이메일 형식이 아닙니다.');
+    // }
 
     // 휴대폰 번호 형식 검사
     const mobileRegex = /^01[0-9]-?[0-9]{3,4}-?[0-9]{4}$/;

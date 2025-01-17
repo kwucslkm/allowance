@@ -39,11 +39,11 @@ router.post('/', async (req, res) => {
 });
 router.post('/memberCreate', async (req, res) => { // 회원 가입
   try{
-
-    const { userEmail,password,mobile,nickname,name,birthday,city } = req.body;
+    let { userEmail,password,mobile,nickname,name,birthday,city } = req.body;
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    const member = await Member.create({ userEmail,hashedPassword,mobile,nickname,name,birthday,city });
+    password = await bcrypt.hash(password, salt);
+    
+    const member = await Member.create({ userEmail,password,mobile,nickname,name,birthday,city });
     res.json(member);
   }catch(error){
     console.error('Error creating allowance:', error);
@@ -53,22 +53,29 @@ router.post('/memberCreate', async (req, res) => { // 회원 가입
 
 // 로그인 체크
   router.post('/loginCheck', async (req, res) => {
-    const { userEmail, password } = req.body;
+    let { userEmail, password } = req.body;
 
     try {
+      // const salt = await bcrypt.genSalt(10);
+      // password = await bcrypt.hash(password, salt);
+      console.log("password = > ",password);
       const user = await Member.findOne({
         where: {
-          userEmail: userEmail,
-          password: password, 
-        },
+          userEmail
+          // password: password, /
+        }
       });
-
-      if (user) {
-        res.status(200).json({ success: true, message: '로그인 성공!!!', user });
-      } else {
+      if (!user) {
         res.status(401).json({ success: false, message: '로그인 실패 아이디 또는 비밀번호가 틀렸습니다.' });
-      }
-    } catch (error) {
+      }else{
+        const isMatch = await bcrypt.compare(password, user.password);
+        if(!isMatch){
+          res.status(401).json({ success: false, message: '로그인 실패 아이디 또는 비밀번호가 틀렸습니다.' });
+        }else{
+          res.status(200).json({ success: true, message: '로그인 성공!!!', user });
+        }
+      } 
+    }catch (error) {
       res.status(500).json({ success: false, message: 'Server error', error });
     }
   });
