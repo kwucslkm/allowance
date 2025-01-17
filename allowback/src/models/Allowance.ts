@@ -56,6 +56,5 @@ Allowance.init(
 );
 
 // Member와의 관계 정의
-Allowance.belongsTo(Member, { foreignKey: 'memberId', as: 'member' });
 
 export default Allowance;

@@ -1,9 +1,13 @@
 import express from 'express';
 import Allowance from '../models/Allowance';
 import Member from './../models/Member';
+import bcrypt from 'bcrypt';
+import bodyParser from 'body-parser';
 
 const router = express.Router();
 
+const app = express();
+app.use(bodyParser.json());
 // router.get('/', async (_, res) => {
 //   try{
 //     const allowances = await Allowance.findAll();
@@ -37,7 +41,9 @@ router.post('/memberCreate', async (req, res) => { // 회원 가입
   try{
 
     const { userEmail,password,mobile,nickname,name,birthday,city } = req.body;
-    const member = await Member.create({ userEmail,password,mobile,nickname,name,birthday,city });
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    const member = await Member.create({ userEmail,hashedPassword,mobile,nickname,name,birthday,city });
     res.json(member);
   }catch(error){
     console.error('Error creating allowance:', error);

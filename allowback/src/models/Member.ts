@@ -65,5 +65,4 @@ Member.init(
     // timestamps: false, // createdAt, updatedAt을 사용하지 않을 경우
   }
 );
-Member.hasMany(Allowance, { foreignKey: 'memberId' });
 export default Member;
