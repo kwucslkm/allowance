@@ -8,12 +8,17 @@
   import LoginForm from './pages/control/LoginForm';
   import { selecLoginCheck, joinMemberCreate } from './services/api';
   import JoinForm from './pages/control/JoinForm';
+import MemberList from './pages/control/MemberList';
 
   const App: React.FC = () => {
     const [loginYn, setLoginYn] = useState(false); // 로그인 여부 상태
     const [showLoginForm, setShowLoginForm] = useState(false); // 로그인 폼 표
     const [showJoinForm, setShowJoinForm] = useState(false); // 로그인 폼 표
+    const [showMemberList,setShowMemberList] = useState(false); // memberList
     let mainPageView = null;
+    // const memberListShow = async memberList()=> {
+
+    // }
     // 로그인 
     const loginCheck = async (userEmail: string, password: string) => {
       // console.log("보낼 userEmail, password = > ",userEmail,password);
@@ -83,7 +88,10 @@
         
       }
     };
-    if (showJoinForm){ // 회원가입 폼
+    // mainPageView control
+    if (showMemberList){
+      mainPageView = <MemberList></MemberList>
+    }else if (showJoinForm){ // 회원가입 폼
       mainPageView = <JoinForm onSubmit={(_userEmail, _password, _mobile, _nickname, _name, _birthday,_city)=>{
         const userEmail = _userEmail;
         const password = _password;
@@ -111,10 +119,14 @@
     return <>
       <Header />
       <Nav onLoginClick={()=>{
+        setShowMemberList(false);
         setShowJoinForm(false);
         setShowLoginForm(true);
       }} onJoinClick={()=>{
+        setShowMemberList(false);
         setShowJoinForm(true);
+      }} onMemberListClick={()=>{
+        setShowMemberList(true);
       }}></Nav>
       {mainPageView}
       <Footer></Footer>

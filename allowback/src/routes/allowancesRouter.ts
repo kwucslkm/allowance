@@ -8,15 +8,15 @@ const router = express.Router();
 
 const app = express();
 app.use(bodyParser.json());
-// router.get('/', async (_, res) => {
-//   try{
-//     const allowances = await Allowance.findAll();
-//     res.json(allowances);
-//   } catch (error) {
-//     console.error('Error creating allowance:', error);
-//     res.status(500).json({ error: 'Failed to create allowance' });
-//   }
-// });
+router.get('/members', async (_, res) => {
+  try{
+    const members = await Member.findAll();
+    res.json(members);
+  } catch (error) {
+    console.error('Error creating allowance:', error);
+    res.status(500).json({ error: 'Failed to create allowance' });
+  }
+});
 interface AllowanceRequest {
   category?: string; // 선택적 필드
   store?: string;    // 선택적 필드

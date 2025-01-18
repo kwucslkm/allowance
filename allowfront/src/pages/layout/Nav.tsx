@@ -4,8 +4,9 @@
   interface NavProps {
     onLoginClick():void;
     onJoinClick():void;
+    onMemberListClick():void;
   }
-  const Nav: React.FC<NavProps> = ({onLoginClick, onJoinClick}) => {
+  const Nav: React.FC<NavProps> = ({onMemberListClick,onLoginClick, onJoinClick}) => {
 
     return (
       <nav>
@@ -13,7 +14,10 @@
           <ul>
             <span className="left">
               <li><a href ="/">Home</a></li>
-              <li><a href ="/list">MemberList</a></li>
+              <li><a href ="/list" onClick={e=>{
+                e.preventDefault();
+                onMemberListClick();
+              }}>MemberList</a></li>
             </span>
             <span className="right">
               <li><a href ="/join" onClick={e=>{

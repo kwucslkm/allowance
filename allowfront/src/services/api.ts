@@ -5,10 +5,10 @@ const api = axios.create({
   baseURL: 'http://localhost:3001/api',
 });
 
-// export const fetchAllowances = async () => {
-//   const response = await api.get('/allowances');
-//   return response.data;
-// };
+ export const findMemberAll = async () => {
+   const response = await api.get('/allowances/members');
+   return response.data;
+ };
 
 export const createAllowance = async (
   data: { 

@@ -47,7 +47,6 @@ const MyHome: React.FC = () => {
 
     fetchAllowancesData(); // memberId가 변경될 때마다 실행
   }, [memberId]); // memberId가 변경될 때마다 호출
-
     
   const handleAdd = async (category: string, desc: string, store: string, 
                           amount: number, memberId: number) => {
@@ -67,11 +66,7 @@ const MyHome: React.FC = () => {
       <form
         onSubmit={(e:React.FormEvent<HTMLFormElement>) => {
           e.preventDefault();
-          // const desc = e.target.description.value;
-          // const amount = parseFloat(e.target.amount.value);
-          // const category = e.target.category.value;
-          // const store = e.target.store.value;
-          // const memberId = parseFloat(e.target.memberId.value);
+
           const form = e.target as HTMLFormElement;
           const desc = (form.elements.namedItem("description") as HTMLInputElement).value;
           const amount = parseFloat((form.elements.namedItem("amount") as HTMLInputElement).value);
