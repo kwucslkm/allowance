@@ -18,11 +18,11 @@ router.get('/members', async (_, res) => {
   }
 });
 interface AllowanceRequest {
-  category?: string; // 선택적 필드
-  store?: string;    // 선택적 필드
+  category?: string; 
+  store?: string;    
   description: string;
   amount: number;
-  date?: string;     // 선택적 필드
+  date?: string;     
   memberId: string;
 }
 
