@@ -16,13 +16,14 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
   return (
     <div>
       <div className="login-form">
+      <h3> 로그인 </h3>
         <form onSubmit={handleLoginCheck}>
           <p>
-            ID:&nbsp;
+            아이디(Email):&nbsp;
             <input type="text" name="userEmail" required placeholder='아이디 입력'/>&nbsp;
           </p>
           <p>
-            Password:&nbsp;
+            비밀번호(Password):&nbsp;
             <input type="password" name="password" required placeholder='비밀번호 입력'/>&nbsp;
           </p>
           <button type="submit">로그인</button>&nbsp;

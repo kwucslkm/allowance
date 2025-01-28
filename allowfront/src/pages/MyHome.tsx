@@ -78,30 +78,40 @@ const MyHome: React.FC = () => {
         }}
       >
         <div>오늘 사용한 지출을 입력하세요</div>
-        <input type="text" name="category" placeholder="지출 구분을 입력(ex.간식)" />
-        <input type="text" name="description" placeholder="구매 품목(item)을 입력하세요" />
-        <input type="text" name="store" placeholder="지출처(store)를 입력하세요" />
-        <input type="number" name="amount" placeholder="지출 금액을 입력하세요" />
+        <input type="text" name="category" placeholder="지출 구분 (ex.간식)" />
+        <input type="text" name="description" placeholder="구매 품목(item) " />
+        <input type="text" name="store" placeholder="지출처(store)" />
+        <input type="number" name="amount" placeholder="지출 금액" />
         <input type="hidden" name="memberId" value={memberId}/>
         <input type="submit" value="지출입력" />
       </form>
       <h3>지출내역</h3>
-      <table>
+      <table className="allowTable">
+        <colgroup>
+        <col style={{ width: '10%' }} />
+        <col style={{ width: '25%' }} />
+        <col style={{ width: '15%' }} />
+        <col style={{ width: '15%' }} />
+        <col style={{ width: '15%' }} />
+        <col style={{ width: '15%' }} />
+        </colgroup>
         <thead>
           <tr>
-            <th>#</th>
-            <th>Date</th>
-            <th>category</th>
-            <th>store</th>
-            <th>Description</th>
-            <th>Amount</th>
+            <th>번호(no)</th>
+            <th>날짜(Date)</th>
+            <th>구분(category)</th>
+            <th>상점(store)</th>
+            <th>품목(item)</th>
+            <th>금액(Amount)</th>
           </tr>
         </thead>
         <tbody>
           {[...allowances].reverse().map((allowance: Allowance, index: number) => (
             <tr key={allowance.id}>
               <td>{index + 1}</td>
-              <td>{new Date(allowance.date).toLocaleDateString('ko-KR')}</td>
+              {/* <td>{new Date(allowance.date).toLocaleDateString('ko-KR')}</td> */}
+              <td>{new Date(allowance.date).toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' })}</td>
+
               <td>{allowance.category}</td>
               <td>{allowance.store}</td>
               <td>{allowance.description}</td>

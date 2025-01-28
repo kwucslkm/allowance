@@ -5,3 +5,10 @@
   
 }
 
+.allowTable, h3 {
+  text-align: center;
+  /* display: flex;
+  justify-content: center; */
+  margin: 0 auto;
+}
+/* .allowTable  */

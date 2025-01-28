@@ -21,6 +21,7 @@ const JoinForm: React.FC<JoinFormProps> = ({ onSubmit }) => {
   return (
     <div>
       <div className="join-form">
+        <h3> 회원가입 </h3>
         <form onSubmit={handleLoginCheck}>
           <p>
             ID:&nbsp;

@@ -29,7 +29,7 @@
 .login-form, .join-form {
   border : solid green 1px;
   border-radius: 3px;
-  width: 300px;
+  width: 350px;
   margin : 1px auto;
   padding : 15px;
   text-align: center;
@@ -67,4 +67,17 @@
 
   /* display: flex;
   justify-content: center; */
+}
+
+#grid .right ,#grid .left {
+  display: flex; /* 각각 내부 요소를 가로로 배치 */
+  gap: 10px; /* 내부 아이템 간 간격 */
+}
+
+#grid{
+  display: grid;
+  grid-template-columns: auto auto; /* 두 개의 열 생성 */
+  justify-content: space-between; /* 열 간격을 양 끝으로 정렬 */
+  align-items: center; /* 수직 정렬 */
+  padding: 0 20px; /* 좌우 여백 */
 }

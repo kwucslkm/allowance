@@ -5,10 +5,10 @@ const api = axios.create({
   baseURL: 'http://localhost:3001/api',
 });
 
- export const findMemberAll = async () => {
-   const response = await api.get('/allowances/members');
-   return response.data;
- };
+export const findMemberAll = async () => {
+  const response = await api.get('/allowances/members');
+  return response.data;
+};
 
 export const createAllowance = async (
   data: { 
@@ -83,7 +83,7 @@ export const selecLoginCheck = async (
     // 에러가 발생한 경우
     if (axios.isAxiosError(error)) {
       // AxiosError일 경우
-      alert(error.response?.data?.message || 'Unknown error');
+      // alert(error.response?.data?.message || 'Unknown error'); App에서 처리
       return false;
       // throw new Error(error.response?.data?.message || 'Unknown error');  // 에러 던지기
     }
