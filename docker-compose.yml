@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./allowback
+      dockerfile: Dockerfile
+    container_name: allow-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=mysql
+      - DB_USER=allowuser
+      - DB_PASSWORD=allowpassword
+      - DB_NAME=allowance
+    volumes:
+      - ./allowback:/app
+      - /app/node_modules
+    depends_on:
+      - mysql
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./allowfront
+      dockerfile: Dockerfile
+    container_name: allow-frontend
+    ports:
+      - "80:80"
+    volumes:
+      - ./allowfront:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.0
+    container_name: allow-mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=allowance
+      - MYSQL_USER=allowuser
+      - MYSQL_PASSWORD=allowpassword
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+    name: allow-mysql-data
