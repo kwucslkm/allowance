@@ -1,18 +1,18 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../db';
 import Member from './Member'; // Member 모델을 가져옵니다.
+import {Allow} from '../../../ts_ts/types'
 
-class Allowance extends Model {
+class Allowances extends Model<Allow> implements Allow {
   public id!: number;
   public category!: string;
-  public store!: string;
+  public store?: string;
   public description!: string;
   public amount!: number;
-  public date!: string; 
   public memberId!: number;
 }
 
-Allowance.init(
+Allowances.init(
   {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -35,12 +35,8 @@ Allowance.init(
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-    date: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
     memberId: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       references: {
         model: Member, // 참조할 모델
@@ -57,4 +53,4 @@ Allowance.init(
 
 // Member와의 관계 정의
 
-export default Allowance;
+export default Allowances;

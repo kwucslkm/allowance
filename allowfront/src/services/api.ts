@@ -14,9 +14,8 @@ export const createAllowance = async (
   data: { 
     description: string; 
     amount: number; 
-    date: string;
     category:string;
-    store:string;
+    store?:string;
     memberId:number;
   }) => {
   const response = await api.post('/allowances', data);
@@ -24,17 +23,18 @@ export const createAllowance = async (
 };
 export const joinMemberCreate = async (
   data: { 
-    userEmail : string;
+    userEmail? : string;
     password : string;
-    mobile : string;
+    mobile? : string;
     nickname : string;
     name : string;
     birthday : string;
     city : string;
+    yearAllowance:number;
   }) => {
   try{
     // 입력값 유효성 검사
-    if (!data.userEmail || !data.password || !data.nickname || !data.birthday) {
+    if ( !data.password || !data.nickname || !data.birthday) {
     throw new Error('필수 입력값이 누락되었습니다.');
     }
 
@@ -45,10 +45,10 @@ export const joinMemberCreate = async (
     // }
 
     // 휴대폰 번호 형식 검사
-    const mobileRegex = /^01[0-9]-?[0-9]{3,4}-?[0-9]{4}$/;
-    if (!mobileRegex.test(data.mobile)) {
-      throw new Error('올바른 휴대폰 번호 형식이 아닙니다.');
-    }
+    // const mobileRegex = /^01[0-9]-?[0-9]{3,4}-?[0-9]{4}$/;
+    // if (!mobileRegex.test(data.mobile)) {
+    //   throw new Error('올바른 휴대폰 번호 형식이 아닙니다.');
+    // }
     const response = await api.post('/allowances/memberCreate', data);
     return{
       success:true,
@@ -68,10 +68,10 @@ export const joinMemberCreate = async (
     error: '회원가입 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'
   };
 };
-
+//로그인 
 export const selecLoginCheck = async (
   data: {
-    userEmail: string;
+    nickname: string;
     password: string;
   }
 ) => {  
@@ -83,7 +83,7 @@ export const selecLoginCheck = async (
     // 에러가 발생한 경우
     if (axios.isAxiosError(error)) {
       // AxiosError일 경우
-      // alert(error.response?.data?.message || 'Unknown error'); App에서 처리
+      alert(error.response?.data?.message || 'Unknown error'); //
       return false;
       // throw new Error(error.response?.data?.message || 'Unknown error');  // 에러 던지기
     }

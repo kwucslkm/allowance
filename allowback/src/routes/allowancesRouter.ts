@@ -1,5 +1,5 @@
 import express from 'express';
-import Allowance from '../models/Allowance';
+import Allowances from '../models/Allowance'
 import Member from './../models/Member';
 import bcrypt from 'bcrypt';
 import bodyParser from 'body-parser';
@@ -28,9 +28,9 @@ interface AllowanceRequest {
 
 router.post('/', async (req, res) => {
   try{
-    const { category, store, description, amount, date, memberId } = req.body;
+    const { category, store, description, amount, memberId } = req.body;
     
-    const allowance = await Allowance.create({ category, store, description, amount, date, memberId });
+    const allowance = await Allowances.create({ category, store, description, amount, memberId });
     res.json(allowance);
   }catch(error){
     console.error('Error creating allowance:', error);
@@ -39,11 +39,11 @@ router.post('/', async (req, res) => {
 });
 router.post('/memberCreate', async (req, res) => { // 회원 가입
   try{
-    let { userEmail,password,mobile,nickname,name,birthday,city } = req.body;
+    let { userEmail,password,mobile,nickname,name,birthday,city, yearAllowance } = req.body;
     const salt = await bcrypt.genSalt(10);
     password = await bcrypt.hash(password, salt);
     
-    const member = await Member.create({ userEmail,password,mobile,nickname,name,birthday,city });
+    const member = await Member.create({ userEmail, password, mobile, nickname, name, birthday, city, yearAllowance });
     res.json(member);
   }catch(error){
     console.error('Error creating allowance:', error);
@@ -53,7 +53,7 @@ router.post('/memberCreate', async (req, res) => { // 회원 가입
 
 // 로그인 체크
   router.post('/loginCheck', async (req, res) => {
-    let { userEmail, password } = req.body;
+    let { nickname, password } = req.body;
 
     try {
       // const salt = await bcrypt.genSalt(10);
@@ -61,7 +61,7 @@ router.post('/memberCreate', async (req, res) => { // 회원 가입
       console.log("password = > ",password);
       const user = await Member.findOne({
         where: {
-          userEmail
+          nickname
           // password: password, /
         }
       });
@@ -85,14 +85,14 @@ router.post('/memberCreate', async (req, res) => { // 회원 가입
     const  {memberId}  = req.body;
     console.log("memberId to db = >",memberId);
     try {
-      const Allowances = await Allowance.findAll({
+      const Allow = await Allowances.findAll({
         where: {
             memberId: memberId,
         },
       });
-      console.log("회원지출내역조회 1 ",Allowances);
-      if (Allowances) {
-        res.status(200).json({ success: true, message: '회원지출내역 조회 성공!!!', Allowances });
+      console.log("회원지출내역조회 1 ",Allow);
+      if (Allow) {
+        res.status(200).json({ success: true, message: '회원지출내역 조회 성공!!!', Allow });
       } else {
         res.status(401).json({ success: false, message: '지출 내역 조회 실패' });
       }

@@ -1,9 +1,9 @@
 import React, { useEffect,useState } from "react";
 import { findMemberAll } from '../../services/api';
 import Member from "../../../../allowback/src/models/Member";
-import { Members } from "../AllowanceType";
+import { User } from "../../../../ts_ts/types";
 const MemberList: React.FC = () => {
-  const [Members, setMembers] = useState<Members[]>([]);
+  const [Members, setMembers] = useState<User[]>([]);
 
   useEffect(()=>{
   const findMemberA = async () => {
@@ -14,7 +14,7 @@ const MemberList: React.FC = () => {
         //   findAllow.push(findAllowancesByMemberId.Allowances[i]);
         // }
         console.log("findMemberList = > ",findMemberList);
-        const memberList = findMemberList.map((member:Members) => {
+        const memberList = findMemberList.map((member:User) => {
             return member; // 각 allowance를 그대로 반환
           });
         
@@ -32,7 +32,7 @@ const MemberList: React.FC = () => {
       <table>
         <thead>
           <tr>
-            <th>#</th>
+            <th>no</th>
             {/* <th>joindate</th>/ */}
             <th>userEmail</th>
             <th>mobile</th>
@@ -40,10 +40,11 @@ const MemberList: React.FC = () => {
             <th>name</th>
             <th>birthday</th>
             <th>city</th>
+            <th>yearAllowance</th>
           </tr>
         </thead>
         <tbody>
-          {[...Members].reverse().map((member: Members, index: number) => (
+          {[...Members].reverse().map((member: User, index: number) => (
             <tr key={member.id}>
               <td>{index + 1}</td>
               {/* <td>{new Date(member.joinDate).toLocaleDateString('ko-KR')}</td> */}

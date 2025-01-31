@@ -1,19 +1,19 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../db'; // 
+import sequelize from '../db';  
 import Allowance from './Allowance';
+import {User} from '../../../ts_ts/types'
 
-class Member extends Model {
+class Member extends Model<User> implements User {
   public id!: number;
-  public userEmail!: string;
-  public password!: string;
-  public mobile?: string | null;
   public nickname!: string;
-  public name?: string | null;
+  public password!: string;
   public birthday!: string;
-  public city?: string | null;
-  public joinDate?: Date;
+  public name!: string;
+  public city!: string;
+  public mobile?: string;
+  public userEmail?: string;
+  public yearAllowance!: number;
 }
-
 Member.init(
   {
     id: {
@@ -21,13 +21,25 @@ Member.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    userEmail: {
-      type: DataTypes.STRING(50),
+    nickname: {
+      type: DataTypes.STRING(30),
       allowNull: false,
       unique: true,
     },
     password: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(200),
+      allowNull: false,
+    },
+    birthday: {
+      type: DataTypes.STRING(30),
+      allowNull: false,
+    },
+    name: {
+      type: DataTypes.STRING(30),
+      allowNull: false,
+    },
+    city: {
+      type: DataTypes.STRING(20),
       allowNull: false,
     },
     mobile: {
@@ -35,34 +47,21 @@ Member.init(
       allowNull: true,
       unique: true,
     },
-    nickname: {
-      type: DataTypes.STRING(30),
-      allowNull: false,
+    userEmail: {
+      type: DataTypes.STRING(50),
+      allowNull: true,
       unique: true,
     },
-    name: {
-      
-      type: DataTypes.STRING(30),
-      allowNull: true,
-    },
-    birthday: {
-      type: DataTypes.STRING(10),
+    yearAllowance: {
+      type: DataTypes.BIGINT,
       allowNull: false,
-    },
-    city: {
-      type: DataTypes.STRING(20),
-      allowNull: true,
-    },
-    joinDate: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: DataTypes.NOW,
+      
     },
   },
   {
     sequelize,
     tableName: 'member_db',
-    // timestamps: false, // createdAt, updatedAt을 사용하지 않을 경우
   }
 );
+
 export default Member;

@@ -9,9 +9,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
   const handleLoginCheck = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const userEmail = formData.get('userEmail') as string;
+    // const userEmail = formData.get('userEmail') as string;
+    const nickname = formData.get('nickname') as string;
     const password = formData.get('password') as string;
-    onSubmit(userEmail, password);
+    onSubmit(nickname, password);
   };
   return (
     <div>
@@ -19,8 +20,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
       <h3> 로그인 </h3>
         <form onSubmit={handleLoginCheck}>
           <p>
-            아이디(Email):&nbsp;
-            <input type="text" name="userEmail" required placeholder='아이디 입력'/>&nbsp;
+            닉네임(nickname):&nbsp;
+            <input type="text" name="nickname" required placeholder='아이디 입력'/>&nbsp;
           </p>
           <p>
             비밀번호(Password):&nbsp;

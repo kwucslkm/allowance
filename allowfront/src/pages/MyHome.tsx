@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { fetchAllowances, createAllowance } from '../services/api';
 import '../styles/home.css';
-import { Allowance } from './AllowanceType'; // Allowance 클래스 임포트
+import { Allow } from '../../../ts_ts/types'; // Allowance 클래스 임포트
 
 const MyHome: React.FC = () => {
-  const [allowances, setAllowances] = useState<Allowance[]>([]);
+  const [allowances, setAllowances] = useState<Allow[]>([]);
   const [memberId, setMemberId] = useState(0);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const MyHome: React.FC = () => {
           // for (let i = 0 ; i<findAllowancesByMemberId.Allowances.length;i++){
           //   findAllow.push(findAllowancesByMemberId.Allowances[i]);
           // }
-          const findAllow = findAllowancesByMemberId.Allowances.map((oneAllowance:Allowance) => {
+          const findAllow = findAllowancesByMemberId.Allowances.map((oneAllowance:Allow) => {
             return oneAllowance; // 각 allowance를 그대로 반환
           });
 
@@ -55,7 +55,7 @@ const MyHome: React.FC = () => {
       description: desc,
       store,
       amount,
-      date: new Date().toISOString(),
+      // date: new Date().toISOString(),
       memberId,
     });
     setAllowances((prev) => [...prev, newAllowance]);
@@ -66,7 +66,6 @@ const MyHome: React.FC = () => {
       <form
         onSubmit={(e:React.FormEvent<HTMLFormElement>) => {
           e.preventDefault();
-
           const form = e.target as HTMLFormElement;
           const desc = (form.elements.namedItem("description") as HTMLInputElement).value;
           const amount = parseFloat((form.elements.namedItem("amount") as HTMLInputElement).value);
@@ -106,12 +105,12 @@ const MyHome: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {[...allowances].reverse().map((allowance: Allowance, index: number) => (
+          {[...allowances].reverse().map((allowance: Allow, index: number) => (
             <tr key={allowance.id}>
               <td>{index + 1}</td>
               {/* <td>{new Date(allowance.date).toLocaleDateString('ko-KR')}</td> */}
-              <td>{new Date(allowance.date).toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' })}</td>
-
+              {/* <td>{new Date(allowance.date).toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' })}</td>/ */}
+              <td>{allowance.createdAt}</td>
               <td>{allowance.category}</td>
               <td>{allowance.store}</td>
               <td>{allowance.description}</td>

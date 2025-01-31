@@ -9,7 +9,7 @@ import LoginForm from './pages/control/LoginForm';
 import { selecLoginCheck, joinMemberCreate } from './services/api';
 import JoinForm from './pages/control/JoinForm';
 import MemberList from './pages/control/MemberList';
-import {User, LoginCheckResponse} from './ts_ts/types';
+import {User, LoginCheckResponse} from '../../ts_ts/types';
 
 
   const App: React.FC = () => { 
@@ -40,10 +40,10 @@ import {User, LoginCheckResponse} from './ts_ts/types';
     let mainPageView = null;
 
     // 로그인 
-    const loginCheck = async (userEmail: string, password: string) => {
+    const loginCheck = async (nickname: string, password: string) => {
       // 1. 입력 받은 유저이메일과 비밀번호를 서버로 보내서 db에서 체크한 결과값(객체)을 받는다.
       const memberLoginCheck = await selecLoginCheck({
-        userEmail, password,
+        nickname, password,
       });
       // 유저 정보 타입 (interface) 정의 => ./types.ts/User import
       // 로그인 체크 응답 타입(interface) 정의 => ./types.ts/LoginCheckResponse import
@@ -80,9 +80,10 @@ import {User, LoginCheckResponse} from './ts_ts/types';
   
     // 회원 가입
     const joinMember = async (userEmail:string,password:string,mobile:string,
-                              nickname:string,name:string,birthday:string,city:string) =>{
+                              nickname:string,name:string,birthday:string,city:string, yearAllowance:number) =>{
       const memberCreateResult = await joinMemberCreate({
-        userEmail,password,mobile,nickname,name,birthday,city,
+        userEmail,password,mobile,nickname,name,birthday,city,yearAllowance
+        
       });
       console.log("memberCreateResult = ",memberCreateResult);
       if (memberCreateResult.success){
@@ -114,15 +115,17 @@ import {User, LoginCheckResponse} from './ts_ts/types';
     } else if (showMemberList){
       mainPageView = <MemberList></MemberList>
     }else if (showJoinForm){ // 회원가입 폼
-      mainPageView = <JoinForm onSubmit={(_userEmail, _password, _mobile, _nickname, _name, _birthday,_city)=>{
+      mainPageView = <JoinForm onSubmit={(_nickname, _password, _birthday, _name, _city, _mobile, _userEmail, _yearAllowance
+        )=>{
+          const nickname = _nickname;
+          const password = _password;
+          const birthday = _birthday;
+          const name = _name;
+          const city = _city;
+          const mobile = _mobile;
         const userEmail = _userEmail;
-        const password = _password;
-        const mobile = _mobile;
-        const nickname = _nickname;
-        const name = _name;
-        const birthday = _birthday;
-        const city = _city;
-        joinMember(userEmail,password,mobile,nickname,name,birthday,city);
+        const yearAllowance = _yearAllowance;
+        joinMember(nickname,password, birthday, name, city, mobile, userEmail, yearAllowance);
       }}></JoinForm>
 
     }else if (showLoginForm){ 
