@@ -2,6 +2,8 @@ import React, { useEffect,useState } from "react";
 import { findMemberAll } from '../../services/api';
 import Member from "../../../../allowback/src/models/Member";
 import { User } from "../../../../ts_ts/types";
+// import Table from 'react-bootstrap/Table';
+
 const MemberList: React.FC = () => {
   const [Members, setMembers] = useState<User[]>([]);
 
@@ -29,30 +31,33 @@ const MemberList: React.FC = () => {
   return (
     <div className="memberList">
       <h3> 회원리스트</h3>
-      <table>
+      <table   >
         <thead>
           <tr>
             <th>no</th>
-            {/* <th>joindate</th>/ */}
-            <th>userEmail</th>
-            <th>mobile</th>
+            <th>가입일</th>
             <th>nickname</th>
             <th>name</th>
             <th>birthday</th>
             <th>city</th>
+            <th>mobile</th>
+            <th>userEmail</th>
             <th>yearAllowance</th>
           </tr>
         </thead>
         <tbody>
           {[...Members].reverse().map((member: User, index: number) => (
             <tr key={member.id}>
-              <td>{index + 1}</td>
-              {/* <td>{new Date(member.joinDate).toLocaleDateString('ko-KR')}</td> */}
-              <td>{member.userEmail}</td>
-              <td>{member.mobile}</td>
+              <td>{index + 1}</td>  
+              <td>{member.createdAt ? new Date(member.createdAt).toLocaleDateString('ko-KR'):""}</td>
+              {/* /<td>{member.createdAt}</td> */}
               <td>{member.nickname}</td>
+              <td>{member.name}</td>
               <td>{member.birthday}</td>
               <td>{member.city}</td>
+              <td>{member.mobile}</td>
+              <td>{member.userEmail}</td>
+              <td>{member.yearAllowance}</td>
             </tr>
           ))}
         </tbody>

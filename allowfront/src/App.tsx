@@ -10,7 +10,7 @@ import { selecLoginCheck, joinMemberCreate } from './services/api';
 import JoinForm from './pages/control/JoinForm';
 import MemberList from './pages/control/MemberList';
 import {User, LoginCheckResponse} from '../../ts_ts/types';
-
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
   const App: React.FC = () => { 
     const [loginYn, setLoginYn] = useState(false); // 로그인 여부 상태
@@ -24,7 +24,7 @@ import {User, LoginCheckResponse} from '../../ts_ts/types';
       // const loginUserInfo = sessionStorage.getItem("userInfo");
       // console.log("새로고침을 위한 세션 유저 정보 = > ",loginUserInfo);
       const savedLoginInfo = sessionStorage.getItem("loginInfo");
-      // console.log("새로고침 로그인 세션 정보 =  >",savedLoginInfo);
+      // console.log("새로고침 로그인 세션 정보 =  > ",savedLoginInfo);
       if (savedLoginInfo) {
         const { loginYn, managerYn } = JSON.parse(savedLoginInfo);
         console.log("새로고침 로그인유무 = > " ,loginYn);
@@ -32,7 +32,7 @@ import {User, LoginCheckResponse} from '../../ts_ts/types';
         setLoginYn(loginYn);
         setManagerYn(managerYn);
         setGoHomeYn(true);
-        const savedUserInfo = sessionStorage.getItem("userInfo");
+        const savedUserInfo = sessionStorage.getItem("memberInfo");
         console.log(savedUserInfo);
       }
     }, []);
@@ -49,16 +49,19 @@ import {User, LoginCheckResponse} from '../../ts_ts/types';
       // 로그인 체크 응답 타입(interface) 정의 => ./types.ts/LoginCheckResponse import
       // 2-1 . 로그인체크(아이디, 패스워드) 성공 후 세션스토리지에 사용자 정보 넣기
       const handleLogin = (memberLoginCheck:LoginCheckResponse) => { 
-        const loginUserEmail = memberLoginCheck.user.userEmail;
+        const loginNickname = memberLoginCheck.user.nickname;
         
         sessionStorage.setItem('memberInfo',JSON.stringify(memberLoginCheck.user)); //사용자정보 세션
-        if(loginUserEmail === 'kwucsa@gmail.com'){
+        // 관리자 확인
+        if(loginNickname === 'admin'|| 
+            loginNickname === 'admin2'||
+            loginNickname === 'admin3'){
           setManagerYn(true); // is관리자 세팅
         }
         // console.log("memberLoginCheck.user.userEmail = ",memberLoginCheck.user.userEmail )
 
         console.log(" 세션에 로그인정보 넣기 전 loginYn = "+loginYn, "managerYn = "+managerYn);
-        const loginInfo = {loginYn:true, managerYn:loginUserEmail === 'kwucsa@gmail.com'}
+        const loginInfo = {loginYn:true, managerYn:loginNickname === '관리자'}
         sessionStorage.setItem('loginInfo',JSON.stringify(loginInfo)); // 로그인 정보 세션
       };
       if(memberLoginCheck.success){  // 2. 로그인성공 시 로직
@@ -68,7 +71,7 @@ import {User, LoginCheckResponse} from '../../ts_ts/types';
         handleLogin(memberLoginCheck);  // 2.1 로그인에 성공 세션스토리지에 user 정보를 넣는 함수 호출
         const userInfo = sessionStorage.getItem('memberInfo'); // 3. 세션에 사용자 정보를 꺼낸다.
       if (userInfo) { //사용자 id 정보 콘솔에 출력
-        // `userInfo`가 null이 아니므로 안전하게 JSON.parse 사용
+        // `userInfo`가 null이 아니므로 JSON.parse 사용
         console.log('Logged-in UserInfo.id:', JSON.parse(userInfo).id);
       } 
       alert(memberLoginCheck.message);// 4. 로그인 성공 메세지알림을 띄워준다.
@@ -79,11 +82,10 @@ import {User, LoginCheckResponse} from '../../ts_ts/types';
     };
   
     // 회원 가입
-    const joinMember = async (userEmail:string,password:string,mobile:string,
-                              nickname:string,name:string,birthday:string,city:string, yearAllowance:number) =>{
+    const joinMember = async (nickname:string,password:string,birthday:string,name:string,city:string,mobile:string,
+                              userEmail:string, ori_yearAllowance:number, yearAllowance:number) =>{
       const memberCreateResult = await joinMemberCreate({
-        userEmail,password,mobile,nickname,name,birthday,city,yearAllowance
-        
+        nickname, password, birthday, name, city, mobile, userEmail, ori_yearAllowance, yearAllowance
       });
       console.log("memberCreateResult = ",memberCreateResult);
       if (memberCreateResult.success){
@@ -115,37 +117,36 @@ import {User, LoginCheckResponse} from '../../ts_ts/types';
     } else if (showMemberList){
       mainPageView = <MemberList></MemberList>
     }else if (showJoinForm){ // 회원가입 폼
-      mainPageView = <JoinForm onSubmit={(_nickname, _password, _birthday, _name, _city, _mobile, _userEmail, _yearAllowance
-        )=>{
-          const nickname = _nickname;
-          const password = _password;
-          const birthday = _birthday;
-          const name = _name;
-          const city = _city;
-          const mobile = _mobile;
+      mainPageView = <JoinForm onSubmit={(_nickname, _password, _birthday, _name,
+                                          _city, _mobile, _userEmail, _ori_yearAllowance, _yearAllowance
+                                        )=>{
+        const nickname = _nickname;
+        const password = _password;
+        const birthday = _birthday;
+        const name = _name;
+        const city = _city;
+        const mobile = _mobile;
         const userEmail = _userEmail;
+        const ori_yearAllowance = _ori_yearAllowance;
         const yearAllowance = _yearAllowance;
-        joinMember(nickname,password, birthday, name, city, mobile, userEmail, yearAllowance);
+        joinMember(nickname,password, birthday, name, city, mobile, userEmail, ori_yearAllowance, yearAllowance);
       }}></JoinForm>
 
     }else if (showLoginForm){ 
-      mainPageView = <LoginForm 
-        onSubmit={(_userEmail, _password) => {
-          const userEmail = _userEmail;
-          const password = _password;
-          loginCheck(userEmail, password);
-        } } 
+      mainPageView = <LoginForm onSubmit={(_userEmail, _password) => {
+        const userEmail = _userEmail;
+        const password = _password;
+        loginCheck(userEmail, password);
+      }} 
       ></LoginForm>
     }else if(loginYn){
-      mainPageView = <MyHome></MyHome>
+      mainPageView = <MyHome reloadPage = {goHmoeYn}></MyHome>
     } else {
       mainPageView = <Main></Main>
     }
     return <>
       <Header />
-      <Nav _loginYn={loginYn}  
-      _managerYn = {managerYn}  
-      onMyPageClick={()=>{
+      <Nav _loginYn={loginYn} _managerYn = {managerYn} onMyPageClick={()=>{
         setGoHomeYn(false);
         setShowMemberList(false);
         setLoginYn(true);

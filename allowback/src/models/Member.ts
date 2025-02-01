@@ -12,8 +12,10 @@ class Member extends Model<User> implements User {
   public city!: string;
   public mobile?: string;
   public userEmail?: string;
+  public ori_yearAllowance!: number;
   public yearAllowance!: number;
 }
+
 Member.init(
   {
     id: {
@@ -50,12 +52,14 @@ Member.init(
     userEmail: {
       type: DataTypes.STRING(50),
       allowNull: true,
-      unique: true,
+    },
+    ori_yearAllowance: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
     },
     yearAllowance: {
       type: DataTypes.BIGINT,
       allowNull: false,
-      
     },
   },
   {

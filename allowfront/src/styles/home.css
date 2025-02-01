@@ -12,3 +12,9 @@
   margin: 0 auto;
 }
 /* .allowTable  */
+.viewAllow {
+  float: right;
+  color:red;
+  font-weight: bold;
+  margin-right: 30px;
+}

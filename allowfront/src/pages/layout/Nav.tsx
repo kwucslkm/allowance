@@ -38,70 +38,44 @@ const Nav: React.FC<NavProps> = ({
               </li>
               {_managerYn && (
                 <li>
-                  <a
-                    href="/list"
-                    onClick={(e) => {
+                  <a href="/list" onClick={(e) => {
                       e.preventDefault();
                       onMemberListClick();
-                    }}
-                  >
-                    회원목록(list)
-                  </a>
+                    }}> 회원목록(list) </a>
                 </li>
               )}
             </span>
-            <span className="right">
+            <span className="right"> 
               {!_loginYn && (
                 <li>
-                  <a
-                    href="/join"
-                    onClick={(e) => {
+                  <a href="/join" onClick={(e) => {
                       e.preventDefault();
                       onJoinClick();
-                    }}
-                  >
-                    회원가입(Join)
-                  </a>
+                    }}> 회원가입(Join) </a>
                 </li>
               )}
               {!_loginYn && (
                 <li>
-                  <a
-                    href="/login"
-                    onClick={(e) => {
+                  <a href="/login" onClick={(e) => {
                       e.preventDefault();
                       onLoginClick();
-                    }}
-                  >
-                    로그인(Login)
-                  </a>
+                    }}> 로그인(Login) </a>
                 </li>
               )}
               {_loginYn && (
                 <li>
-                  <a
-                    href="/myPage"
-                    onClick={(e) => {
+                  <a href="/myPage" onClick={(e) => {
                       e.preventDefault();
                       onMyPageClick();
-                    }}
-                  >
-                    {_managerYn && "(관리자) "}
-                    {nickname}님 환영합니다.
-                  </a>
+                    }}> {_managerYn && "(관리자) "} {nickname}님 환영합니다. </a>
                 </li>
               )}
               {_loginYn && (
                 <li>
-                  <a
-                    href="/logout"
-                    onClick={(e) => {
+                  <a href="/logout" onClick={(e) => {
                       e.preventDefault();
                       onLogoutClick();
-                    }}
-                  >
-                    Logout
-                  </a>
+                    }}> Logout </a>
                 </li>
               )}
             </span>

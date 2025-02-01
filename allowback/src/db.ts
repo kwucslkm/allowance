@@ -11,9 +11,11 @@ const sequelize = new Sequelize(
   {
     host: process.env.DB_HOST,
     port: parseInt(process.env.DB_PORT || '3306', 10),
+    timezone: '+09:00', // 한국 시간대 (KST)  
     dialect: process.env.DB_DIALECT as any,
     dialectOptions: {
       charset: process.env.DB_CHARSET,
+      timezone: 'Asia/Seoul', // MySQL 서버 시간대 설정
     },
     define: {
       charset: process.env.DB_CHARSET,

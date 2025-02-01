@@ -1,9 +1,7 @@
 import axios from 'axios';
 import Member from './../../../allowback/src/models/Member';
 
-const api = axios.create({
-  baseURL: 'http://localhost:3001/api',
-});
+const api = axios.create({baseURL: 'http://localhost:3001/api',});
 
 export const findMemberAll = async () => {
   const response = await api.get('/allowances/members');
@@ -23,13 +21,14 @@ export const createAllowance = async (
 };
 export const joinMemberCreate = async (
   data: { 
-    userEmail? : string;
-    password : string;
-    mobile? : string;
     nickname : string;
-    name : string;
+    password : string;
     birthday : string;
+    name : string;
     city : string;
+    mobile? : string;
+    userEmail? : string;
+    ori_yearAllowance:number;
     yearAllowance:number;
   }) => {
   try{
@@ -92,7 +91,7 @@ export const selecLoginCheck = async (
 };
 export const fetchAllowances = async (memberId:number) => {
   try{
-    console.log("memberId to router = > ",memberId);
+    console.log("memberId to router 2 = > ", memberId);
     const response = await api.post('/allowances/findAlloanceByMemberId',{memberId});
     return response.data;
   }catch(error){
@@ -106,5 +105,27 @@ export const fetchAllowances = async (memberId:number) => {
     throw error;  // 다른 종류의 에러는 다시 던지기
   }
 };
+export const updateAllowance = async(
+  data:{
+    amount:number;
+    remainAllow:number;
+    memberId:number;
+  }
+) =>{
+  try{
+    console.log("data to router  = > ", data);
+    const response = await api.post('/allowances/updateMemberAllowance',data);
+    return response.data;
+  }catch(error){
+    // 에러가 발생한 경우
+    if (axios.isAxiosError(error)) {
+      // AxiosError일 경우
+      alert(error.response?.data?.message || 'Unknown error');
+      return false;
+      // throw new Error(error.response?.data?.message || 'Unknown error');  // 에러 던지기
+    }
+    throw error;  // 다른 종류의 에러는 다시 던지기
+  }
+}
 
 export default api;

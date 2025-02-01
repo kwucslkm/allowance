@@ -3,7 +3,7 @@ import '../../styles/layout.css';
 
 interface JoinFormProps {
   onSubmit: (nickname:string, password: string, birthday:string,
-              name:string, city:string, mobile:string, userEmail: string, yearAllowance: number
+              name:string, city:string, mobile:string, userEmail: string, ori_yearAllowance: number, yearAllowance: number
             ) => void; // 로그인 제출 이벤트
   
 }
@@ -18,9 +18,11 @@ const JoinForm: React.FC<JoinFormProps> = ({ onSubmit }) => {
     const city = formData.get('city') as string;
     const mobile = formData.get('mobile') as string;
     const userEmail = formData.get('userEmail') as string;
+    
     const value = formData.get('yearAllowance');
-    const yearAllowance = value ? Number(value as string) : 0 ;
-    onSubmit(nickname, password, birthday, name,city, mobile, userEmail, yearAllowance );
+      const ori_yearAllowance = value ? Number(value as string) : 0 ; 
+      const yearAllowance = value ? Number(value as string) : 0 ;
+    onSubmit(nickname, password, birthday, name, city, mobile, userEmail, ori_yearAllowance, yearAllowance );
   };
   return (
     <div>
