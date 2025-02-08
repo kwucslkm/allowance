@@ -10,6 +10,7 @@ interface MyHomeProps {
 const MyHome: React.FC<MyHomeProps> = ({reloadPage}) => {
   const [allowances, setAllowances] = useState<Allow[]>([]);
   const [memberId, setMemberId] = useState(0);
+  const [oriYearAllow, setOriYearAllow] = useState(0);
   const [remainAllow, setRemainAllow] = useState(0);
   
   useEffect(() => {
@@ -19,8 +20,11 @@ const MyHome: React.FC<MyHomeProps> = ({reloadPage}) => {
         try {
           const parsedUserInfo = JSON.parse(userInfo);
           setMemberId(parsedUserInfo.id); // ID 값 설정
+          setOriYearAllow(parsedUserInfo.ori_yearAllowance); //처음 설정 용돈돈
           setRemainAllow(parsedUserInfo.yearAllowance); //남은 연간용돈
+          console.log("돔 그리고  한 남은 용돈  0ㄴ= > ",remainAllow);
           console.log("session memberId 1 = > ", parsedUserInfo.id);
+          console.log("session parsedUserInfo.ori_yearAllowance = > ", parsedUserInfo.ori_yearAllowance);
           console.log("session parsedUserInfo.yearAllowance = > ", parsedUserInfo.yearAllowance);
         } catch (error) {
           console.error("Error parsing user info from session storage:", error);
@@ -67,19 +71,22 @@ const MyHome: React.FC<MyHomeProps> = ({reloadPage}) => {
     });
     console.log("minusAllowResult = > ", minusAllowResult);
     if(minusAllowResult.success) {
+      console.log("minusAllowResult.newAllow = ",minusAllowResult.newAllow);
       setRemainAllow(minusAllowResult.newAllow); //db에 저장된 남은 용돈 값을 가져와 화면에 뿌려줌
+      console.log("업데이트 한 남은 용돈  1= > ",remainAllow);
+      
       // 1. 세션에서 데이터를 가져오기
       const savedMemberInfo = sessionStorage.getItem("memberInfo");
       if (savedMemberInfo) { //null 방지
         const memberInfo = JSON.parse(savedMemberInfo);
-        memberInfo.yearAllowance = remainAllow; // 예제 값
+        console.log("memberInfo.yearAllowance  2= ",memberInfo.yearAllowance);
+        memberInfo.yearAllowance = minusAllowResult.newAllow; // 예제 값
+        console.log("memberInfo.yearAllowance  3= ",memberInfo.yearAllowance);
         sessionStorage.setItem("memberInfo", JSON.stringify(memberInfo));
         console.log("Updated sessionStorage:", sessionStorage.getItem("memberInfo")); // 세션 값 확인
       } else {
         console.error("세션에 memeberInfo 없음");
       }
-
-
     }
   };
 
@@ -98,8 +105,14 @@ const MyHome: React.FC<MyHomeProps> = ({reloadPage}) => {
           handleAdd(category, desc, store, amount, memberId);
         }}
       >
-        <div>오늘 사용한 지출을 입력하세요<span className='viewAllow'>
-              연간 용돈:{remainAllow}</span></div><br></br>
+        <div>오늘 사용한 지출을 입력하세요
+          <span className='viewAllowOri'>
+            연간 설정 용돈:&nbsp;{oriYearAllow.toLocaleString()}
+          </span><br></br>
+          <span className='viewAllow'>
+            현재 남은 용돈:&nbsp;{remainAllow.toLocaleString()}&nbsp;
+          </span >
+        </div><br></br>
         <input type="text" name="category" placeholder="지출 구분 (ex.간식)" />
         <input type="text" name="description" placeholder="구매 품목(item) " />
         <input type="text" name="store" placeholder="지출처(store)" />
@@ -107,7 +120,9 @@ const MyHome: React.FC<MyHomeProps> = ({reloadPage}) => {
         <input type="hidden" name="memberId" value={memberId}/>
         <input type="submit" value="지출입력" />
       </form>
+      <br></br>
       <h3>지출내역</h3>
+      <br></br>
       <table className="allowTable " >
         <colgroup>
         <col style={{ width: '5%' }} />
@@ -118,7 +133,7 @@ const MyHome: React.FC<MyHomeProps> = ({reloadPage}) => {
         <col style={{ width: '15%' }} />
         </colgroup>
         <thead>
-          <tr>
+          <tr style={{ fontWeight: "bold", backgroundColor: "#f0f0f0" }}>
             <th>번호(no)</th>
             <th>날짜(Date)</th>
             <th>구분(category)</th>
@@ -135,9 +150,14 @@ const MyHome: React.FC<MyHomeProps> = ({reloadPage}) => {
               <td>{allowance.category}</td>
               <td>{allowance.store}</td>
               <td>{allowance.description}</td>
-              <td>{allowance.amount}</td>
+              <td>{allowance.amount.toLocaleString()}</td>
             </tr>
           ))}
+          {/* 🔥 합계 금액 출력 */}
+          <tr style={{ fontWeight: "bold", backgroundColor: "#f0f0f0" }}>
+            <td colSpan={5} style={{ textAlign: "right" }}>합계금액:</td>
+            <td>{allowances.reduce((sum, allowance) => sum + allowance.amount, 0).toLocaleString()} 원</td>
+          </tr>
         </tbody>
       </table>  
     </div>

@@ -104,11 +104,6 @@ router.post('/memberCreate', async (req, res) => { // 회원 가입
       let { amount, remainAllow, memberId } = req.body;
 
       try {
-        // const salt = await bcrypt.genSalt(10);
-        // password = await bcrypt.hash(password, salt);
-        console.log("memberId = > ",memberId);
-        console.log("amount = > ",amount);
-        console.log("remainAllow - amount = > ",remainAllow - amount);
         const newAllow = remainAllow - amount;
         const result = await Member.update(
           { yearAllowance: newAllow }, // 업데이트할 값

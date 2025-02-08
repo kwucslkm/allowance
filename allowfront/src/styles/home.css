@@ -18,3 +18,16 @@
   font-weight: bold;
   margin-right: 30px;
 }
+.viewAllowOri {
+  float: right;
+  color:blue;
+  font-weight: bold;
+  margin-right: 30px;
+}
+.allowTable, 
+.allowTable tr,
+.allowTable th,
+.allowTable td{
+  border: 1px solid pink;
+  border-collapse: collapse;
+}

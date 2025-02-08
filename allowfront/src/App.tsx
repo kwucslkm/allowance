@@ -129,7 +129,8 @@ import {User, LoginCheckResponse} from '../../ts_ts/types';
         const userEmail = _userEmail;
         const ori_yearAllowance = _ori_yearAllowance;
         const yearAllowance = _yearAllowance;
-        joinMember(nickname,password, birthday, name, city, mobile, userEmail, ori_yearAllowance, yearAllowance);
+        joinMember(nickname,password, birthday, name, city, 
+                    mobile, userEmail, ori_yearAllowance, yearAllowance);
       }}></JoinForm>
 
     }else if (showLoginForm){ 
