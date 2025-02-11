@@ -1,7 +1,5 @@
-Allowance System
-
-This is a web-based allowance management system built using React (Frontend) and Node.js with Express & Sequelize (Backend). The backend uses MySQL as the database, which runs inside a Docker container.
-
+Allowance System(포괄 용돈 시스템)
+react, ts, node.js, express, mysql, docker 활용 개발 범위를 확대하고자 프로젝트 진행 중
 📁 Project Structure
 
 ALLOWANCE
@@ -11,7 +9,7 @@ ALLOWANCE
 │   │   ├── routes/   # API routes (allowancesRouter.ts)
 │   │   ├── db.ts     # Sequelize database configuration
 │   │   ├── server.ts # Express server setup
-│   ├── Dockerfile    # Backend Docker setup
+│   ├── Dockerfile    # Backend Docker setup(20250211진행중)
 │   ├── .env          # Environment variables
 │
 │── allowfront/       # Frontend (React, TypeScript)
@@ -22,7 +20,7 @@ ALLOWANCE
 │   │   ├── styles/   # CSS stylesheets
 │   ├── Dockerfile    # Frontend Docker setup
 │
-│── docker-compose.yml # Docker configuration (MySQL, Backend, Frontend)
+│── docker-compose.yml # Docker configuration (MySQL, Backend, Frontend)(진해예정)
 │── backup.sql         # MySQL database backup
 
 🚀 Getting Started
@@ -39,19 +37,19 @@ npm install
 
 Create a .env file in allowback/ and add:
 
-PORT=3001
-DB_HOST=db
-DB_USER=root
-DB_PASS=root
-DB_NAME=allowance_db
-DB_PORT=3306
+PORT=
+DB_HOST=
+DB_USER=
+DB_PASS=
+DB_NAME=
+DB_PORT=
 
 3️⃣ Frontend Setup (allowfront)
 
 cd allowfront
 npm install
 
-🐳 Running MySQL with Docker
+🐳 Running MySQL with Docker(5506:3306 포트포워딩)
 
 Start MySQL container using Docker Compose:
 
@@ -65,31 +63,13 @@ Backend Server (Port: 3001)
 
 Frontend Server (Port: 3000)
 
-Check running containers:
-
-docker ps
-
-To stop all containers:
-
-docker-compose down
-
-📡 Database Setup (Sequelize)
-
-To initialize the database, run:
-
-cd allowback
-npx sequelize-cli db:migrate
-
-To insert sample data:
-
-npx sequelize-cli db:seed:all
 
 🏃 Running the Project
 
 🔥 Start Backend
 
 cd allowback
-npm run dev
+npm ts-node src/server.ts
 
 🎨 Start Frontend
 
@@ -136,7 +116,7 @@ Delete an allowance
 
 Frontend: React, TypeScript, Axios
 
-Backend: Node.js, Express, Sequelize
+Backend: Node.js, Express, Sequelize, 비밀번호 암호화 : bcrypt
 
 Database: MySQL (Docker)
 
@@ -144,9 +124,7 @@ Containerization: Docker, Docker Compose
 
 ✨ Author
 
-Developed by Your Name📧 Contact: your.email@example.com
+Developed by 이광명 Contact: kwucsa@gmail.com
 
-📝 License
 
-This project is licensed under the MIT License.
 
