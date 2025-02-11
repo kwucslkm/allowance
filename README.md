@@ -1,12 +1,7 @@
 Allowance System(포괄 용돈 시스템)
 react, ts, node.js, express, mysql, docker 활용 개발 범위를 확대하고자 프로젝트 진행 중
 📁 Project Structure
-# ALLOWANCE 프로젝트
-
-## 📂 프로젝트 구조
-ALLOWANCE ├── allowback/ # Backend (Node.js, Express, Sequelize) │ ├── src/ │ │ ├── models/ # Sequelize models (Allowance, Members, etc.) │ │ ├── routes/ # API routes (allowancesRouter.ts) │ │ ├── db.ts # Sequelize database configuration │ │ ├── server.ts # Express server setup │ ├── Dockerfile # Backend Docker setup (20250211 진행 중) │ ├── .env # Environment variables │ ├── allowfront/ # Frontend (React, TypeScript) │ ├── src/ │ │ ├── pages/ # React pages (LoginForm, MemberList) │ │ ├── layout/ # Layout components │ │ ├── services/ # API service files │ │ ├── styles/ # CSS stylesheets │ ├── Dockerfile # Frontend Docker setup │ ├── docker-compose.yml # Docker configuration (MySQL, Backend, Frontend) (진행 예정) └── backup.sql # MySQL database backup
-
-
+```
 ALLOWANCE
 │── allowback/        # Backend (Node.js, Express, Sequelize)
 │   ├── src/
@@ -27,7 +22,7 @@ ALLOWANCE
 │
 │── docker-compose.yml # Docker configuration (MySQL, Backend, Frontend)(진해예정)
 │── backup.sql         # MySQL database backup
-
+```
 🚀 Getting Started
 
 1️⃣ Clone the Repository
