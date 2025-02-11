@@ -116,7 +116,7 @@ import {User, LoginCheckResponse} from '../../ts_ts/types';
       mainPageView = <Main></Main>
     } else if (showMemberList){
       mainPageView = <MemberList></MemberList>
-    }else if (showJoinForm){ // 회원가입 폼
+    } else if (showJoinForm){ // 회원가입 폼
       mainPageView = <JoinForm onSubmit={(_nickname, _password, _birthday, _name,
                                           _city, _mobile, _userEmail, _ori_yearAllowance, _yearAllowance
                                         )=>{
@@ -129,18 +129,17 @@ import {User, LoginCheckResponse} from '../../ts_ts/types';
         const userEmail = _userEmail;
         const ori_yearAllowance = _ori_yearAllowance;
         const yearAllowance = _yearAllowance;
-        joinMember(nickname,password, birthday, name, city, 
-                    mobile, userEmail, ori_yearAllowance, yearAllowance);
+        joinMember(nickname,password, birthday, name, city, mobile, userEmail, ori_yearAllowance, yearAllowance);
       }}></JoinForm>
 
-    }else if (showLoginForm){ 
+    } else if (showLoginForm){ 
       mainPageView = <LoginForm onSubmit={(_userEmail, _password) => {
         const userEmail = _userEmail;
         const password = _password;
         loginCheck(userEmail, password);
       }} 
       ></LoginForm>
-    }else if(loginYn){
+    } else if(loginYn){
       mainPageView = <MyHome reloadPage = {goHmoeYn}></MyHome>
     } else {
       mainPageView = <Main></Main>
