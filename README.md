@@ -1,5 +1,5 @@
 Allowance System(포괄 용돈 시스템)
-react, ts, node.js, express, mysql, docker 활용 개발 범위를 확대하고자 프로젝트 진행 중
+react, ts, node.js, express, mysql, docker 활용 개발 범위를 확대하고자 프로젝트 진행 중   
 📁 Project Structure
 ```
 ALLOWANCE
