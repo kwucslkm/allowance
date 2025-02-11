@@ -7,16 +7,35 @@ import allowancesRouter from './routes/allowancesRouter';
 // .env 파일 로드
 dotenv.config();
 const app = express();
-app.use(cors());
+//app.use(cors());
+// CORS 설정 (특정 도메인만 허용)
+const corsOptions = {
+  origin: ['http://localhost:3000', 'http://kwcsani.iptime.org:3000'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['Access-Control-Allow-Private-Network']
+};
+
+app.use(cors(corsOptions));
+
+// 프리플라이트 요청에 대한 추가 설정
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Private-Network', 'true');
+  next();
+});
 app.use(express.json());
 app.use('/api/allowances', allowancesRouter);
 
 // 환경 변수 PORT 사용
-const port = process.env.PORT || 3000;  // .env에서 PORT 값을 찾고 없으면 기본값 3000 사용
+const port: number = parseInt(process.env.PORT || "3001", 10);  // 숫자로 변환
+const host: string = "0.0.0.0";  // 외부 접근 허용
+
 sequelize.sync().then(() => {
-  app.listen(port, () => {
-    console.log('VICTORY!!! Server is running on http://localhost:3001');
+  app.listen(port, host, () => {
+    console.log(`🚀 Server is running on http://0.0.0.0:${port}`);
   });
 }).catch(err => {
-  console.error('Error syncing database: ', err);
+  console.error('❌ Error syncing database: ', err);
 });
+

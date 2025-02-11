@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { updateAllowance, fetchAllowances, createAllowance } from '../services/api';
 import '../styles/home.css';
-import { Allow } from '../../../ts_ts/types'; // Allowance 클래스 임포트
+import { Allow } from '../../ts_ts/types'; // Allowance 클래스 임포트
 // import Table from 'react-bootstrap/Table';/
 
 interface MyHomeProps {

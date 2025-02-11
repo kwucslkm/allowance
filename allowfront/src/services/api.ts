@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Member from './../../../allowback/src/models/Member';
+//import Member from './../../../allowback/src/models/Member';
 
 const api = axios.create({baseURL: 'http://localhost:3001/api',});
 

@@ -14,8 +14,6 @@ COPY . .
 # TypeScript 실행을 위한 ts-node 설치
 RUN npm install -g ts-node
 
-# 환경 변수 설정
-ENV NODE_ENV=production
-
 # 서버 실행
 CMD ["npx", "ts-node", "src/server.ts"]
+

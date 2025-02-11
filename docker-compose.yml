@@ -1,46 +1,66 @@
-
-version: "3.8"
-
 services:
+  # Nginx 서비스 정의
+  nginx:
+    image: nginx:latest
+    container_name: nginx_proxy
+    restart: always
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - allowfront
+    networks:
+      - app_network
+
+  # allowback 서비스 정의 (백엔드)
+  allowback:
+    build: ./allowback
+    ports:
+      - "3001:3001"  # 외부에서 접근 가능하도록 설정
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - DB_HOST=kwucsani.iptime.org
+      - DB_PORT=5506
+      - DB_USER=root
+      - DB_PASSWORD=1001
+      - DB_NAME=allowance_db
+    depends_on:
+      - mysql
+    networks:
+      - app_network
+
+  # allowfront 서비스 정의 (프론트엔드)
+  allowfront:
+    build: ./allowfront
+    ports:
+      - "3000:3000"  # 외부에서 접근 가능하도록 설정
+    depends_on:
+      - allowback
+    networks:
+      - app_network
+
+  # MySQL 서비스 정의
   mysql:
     image: mysql:8.0
-    container_name: allowance-mysql
-    restart: always
+    container_name: mysql80
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: 1001
       MYSQL_DATABASE: allowance_db
-      MYSQL_USER: allowance_user
-      MYSQL_PASSWORD: userpassword
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 1001
     ports:
       - "5506:3306"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - mysql80_data:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - app_network
 
-  backend:
-    build: ./allowback
-    container_name: allowance-backend
-    restart: always
-    depends_on:
-      - mysql
-    environment:
-      DB_HOST: kwucsani.iptime.org
-      DB_PORT: 8944
-      DB_USER: root
-      DB_PASSWORD: 1001
-      DB_NAME: allowance_db
-    ports:
-      - "3001:3001"
-
-  frontend:
-    build: ./allowfront
-    container_name: allowance-frontend
-    restart: always
-    depends_on:
-      - backend
-    ports:
-      - "3000:3000"
-    environment:
-      - HOST=0.0.0.0
+networks:
+  app_network:
+    driver: bridge
 
 volumes:
-  mysql-data:
+  mysql80_data:

@@ -9,7 +9,7 @@ import LoginForm from './pages/control/LoginForm';
 import { selecLoginCheck, joinMemberCreate } from './services/api';
 import JoinForm from './pages/control/JoinForm';
 import MemberList from './pages/control/MemberList';
-import {User, LoginCheckResponse} from '../../ts_ts/types';
+import {User, LoginCheckResponse} from '../ts_ts/types';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
   const App: React.FC = () => { 
@@ -61,7 +61,9 @@ import {User, LoginCheckResponse} from '../../ts_ts/types';
         // console.log("memberLoginCheck.user.userEmail = ",memberLoginCheck.user.userEmail )
 
         console.log(" 세션에 로그인정보 넣기 전 loginYn = "+loginYn, "managerYn = "+managerYn);
-        const loginInfo = {loginYn:true, managerYn:loginNickname === '관리자'}
+        const loginInfo = {loginYn:true, managerYn:(loginNickname === 'admin'|| 
+          loginNickname === 'admin2'||
+          loginNickname === 'admin3')}
         sessionStorage.setItem('loginInfo',JSON.stringify(loginInfo)); // 로그인 정보 세션
       };
       if(memberLoginCheck.success){  // 2. 로그인성공 시 로직

@@ -1,7 +1,7 @@
 import React, { useEffect,useState } from "react";
 import { findMemberAll } from '../../services/api';
-import Member from "../../../../allowback/src/models/Member";
-import { User } from "../../../../ts_ts/types";
+// import Member from "../../../../allowback/src/models/Member";
+import { User } from "../../../ts_ts/types";
 // import Table from 'react-bootstrap/Table';
 
 const MemberList: React.FC = () => {
