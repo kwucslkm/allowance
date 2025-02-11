@@ -1,64 +1,21 @@
-# allowback/Dockerfile
-FROM node:18
+# Node.js 22.11.0 기반
+FROM node:22.11.0
 
-WORKDIR /app/backend
-COPY allowback/package*.json ./
+# 작업 디렉터리 설정
+WORKDIR /app
+
+# package.json 복사 후 의존성 설치
+COPY package.json package-lock.json ./
 RUN npm install
-COPY allowback .
-RUN npm run build
 
-EXPOSE 3000
-CMD ["npm", "start"]
+# 전체 소스 코드 복사
+COPY . .
 
-# allowfront/Dockerfile
-FROM node:18 as builder
+# TypeScript 실행을 위한 ts-node 설치
+RUN npm install -g ts-node
 
-WORKDIR /app/frontend
-COPY allowfront/package*.json ./
-RUN npm install
-COPY allowfront .
-RUN npm run build
+# 환경 변수 설정
+ENV NODE_ENV=production
 
-FROM nginx:alpine
-COPY --from=builder /app/frontend/build /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# docker-compose.yml
-version: '3.8'
-
-services:
-  backend:
-    build:
-      context: .
-      dockerfile: allowback/Dockerfile
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - DB_HOST=mysql
-    depends_on:
-      - mysql
-
-  frontend:
-    build:
-      context: .
-      dockerfile: allowfront/Dockerfile
-    ports:
-      - "80:80"
-    depends_on:
-      - backend
-
-  mysql:
-    image: mysql:8.0
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=yourpassword
-      - MYSQL_DATABASE=allowance
-      - MYSQL_USER=allowuser
-      - MYSQL_PASSWORD=allowpassword
-
-volumes:
-  mysql_data:
+# 서버 실행
+CMD ["npx", "ts-node", "src/server.ts"]
