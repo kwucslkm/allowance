@@ -1,7 +1,9 @@
+# docker-compose.yml
+version: '3.8'
+
 services:
-  # Nginx 서비스 정의
   nginx:
-    image: nginx:latest
+    image: nginx:alpine
     container_name: nginx_proxy
     restart: always
     volumes:
@@ -13,11 +15,12 @@ services:
     networks:
       - app_network
 
-  # allowback 서비스 정의 (백엔드)
   allowback:
-    build: ./allowback
+    build: 
+      context: ./allowback
+      dockerfile: Dockerfile
     ports:
-      - "3001:3001"  # 외부에서 접근 가능하도록 설정
+      - "3001:3001"
     environment:
       - NODE_ENV=production
       - PORT=3001
@@ -31,19 +34,19 @@ services:
     networks:
       - app_network
 
-  # allowfront 서비스 정의 (프론트엔드)
   allowfront:
-    build: ./allowfront
+    build: 
+      context: ./allowfront
+      dockerfile: Dockerfile
     ports:
-      - "3000:3000"  # 외부에서 접근 가능하도록 설정
+      - "3000:3000"
     depends_on:
       - allowback
     networks:
       - app_network
 
-  # MySQL 서비스 정의
   mysql:
-    image: mysql:8.0
+    image: mysql:8.0-oracle
     container_name: mysql80
     environment:
       MYSQL_ROOT_PASSWORD: 1001

@@ -122,7 +122,27 @@ Database: MySQL (Docker)
 
 Containerization: Docker, Docker Compose
 
-Backend Eockerfile
+## Backend Dockerfile
+### Node.js 22.11.0 기반
+FROM node:22.11.0
+
+# 작업 디렉터리 설정
+WORKDIR /app
+
+# package.json 복사 후 의존성 설치
+COPY package.json package-lock.json ./
+RUN npm install
+
+# 전체 소스 코드 복사
+COPY . .
+
+# TypeScript 실행을 위한 ts-node 설치
+RUN npm install -g ts-node
+
+# 서버 실행
+CMD ["npx", "ts-node", "src/server.ts"]
+
+## front Dockerfile
 # Node.js 22.11.0 기반
 FROM node:22.11.0
 
@@ -139,29 +159,77 @@ COPY . .
 # TypeScript 실행을 위한 ts-node 설치
 RUN npm install -g ts-node
 
-# 환경 변수 설정
-ENV NODE_ENV=production
-
 # 서버 실행
 CMD ["npx", "ts-node", "src/server.ts"]
 
-front Dockerfile
+## docker-compose 
+services:
+  # Nginx 서비스 정의
+  nginx:
+    image: nginx:latest
+    container_name: nginx_proxy
+    restart: always
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - allowfront
+    networks:
+      - app_network
 
-# Node.js 22.11.0 기반
-FROM node:22.11.0
+  # allowback 서비스 정의 (백엔드)
+  allowback:
+    build: ./allowback
+    ports:
+      - "3001:3001"  # 외부에서 접근 가능하도록 설정
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - DB_HOST=kwucsani.iptime.org
+      - DB_PORT=5506
+      - DB_USER=root
+      - DB_PASSWORD=1001
+      - DB_NAME=allowance_db
+    depends_on:
+      - mysql
+    networks:
+      - app_network
 
-# 작업 디렉터리 설정
-WORKDIR /app
+  # allowfront 서비스 정의 (프론트엔드)
+  allowfront:
+    build: ./allowfront
+    ports:
+      - "3000:3000"  # 외부에서 접근 가능하도록 설정
+    depends_on:
+      - allowback
+    networks:
+      - app_network
 
-# package.json 복사 후 의존성 설치
-COPY package.json package-lock.json ./
-RUN npm install
+  # MySQL 서비스 정의
+  mysql:
+    image: mysql:8.0
+    container_name: mysql80
+    environment:
+      MYSQL_ROOT_PASSWORD: 1001
+      MYSQL_DATABASE: allowance_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 1001
+    ports:
+      - "5506:3306"
+    volumes:
+      - mysql80_data:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - app_network
 
-# 전체 소스 코드 복사
-COPY . .
+networks:
+  app_network:
+    driver: bridge
 
-# 개발 서버 실행
-CMD ["npm", "start"]
+volumes:
+  mysql80_data:
+
 
 ✨ Author
 

@@ -17,14 +17,14 @@ router.get('/members', async (_, res) => {
     res.status(500).json({ error: 'Failed to create allowance' });
   }
 });
-interface AllowanceRequest {
-  category?: string; 
-  store?: string;    
-  description: string;
-  amount: number;
-  date?: string;     
-  memberId: string;
-}
+// interface  {
+//   category?: string; 
+//   store?: string;    
+//   description: string;
+//   amount: number;
+//   date?: string;     
+//   memberId: string;
+// }
 
 router.post('/', async (req, res) => {
   try{
