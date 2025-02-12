@@ -7,23 +7,29 @@ import allowancesRouter from './routes/allowancesRouter';
 // .env 파일 로드
 dotenv.config();
 const app = express();
-//app.use(cors());
+
 // CORS 설정 (특정 도메인만 허용)
 const corsOptions = {
   origin: ['http://localhost:3000', 'http://kwcsani.iptime.org:3000'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
   exposedHeaders: ['Access-Control-Allow-Private-Network']
 };
 
+// CORS 미들웨어 사용
 app.use(cors(corsOptions));
 
-// 프리플라이트 요청에 대한 추가 설정
+// 프리플라이트 요청에 대한 추가 설정 (OPTIONS 요청 처리)
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Private-Network', 'true');
-  next();
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();  // OPTIONS 요청에 대한 응답 처리
+  } else {
+    res.header('Access-Control-Allow-Private-Network', 'true');
+    next();
+  }
 });
+
 app.use(express.json());
 app.use('/api/allowances', allowancesRouter);
 
@@ -38,4 +44,3 @@ sequelize.sync().then(() => {
 }).catch(err => {
   console.error('❌ Error syncing database: ', err);
 });
-

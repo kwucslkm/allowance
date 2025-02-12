@@ -1,7 +1,8 @@
 import express from 'express';
 import Allowances from '../models/Allowance'
 import Member from './../models/Member';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
+// import bcrypt from 'bcrypt';
 import bodyParser from 'body-parser';
 
 const router = express.Router();

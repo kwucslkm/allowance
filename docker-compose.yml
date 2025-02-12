@@ -1,5 +1,5 @@
 # docker-compose.yml
-version: '3.8'
+# version: '3.8'
 
 services:
   nginx:
@@ -24,13 +24,14 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3001
+      # - DB_HOST=mysql80
       - DB_HOST=kwucsani.iptime.org
       - DB_PORT=5506
       - DB_USER=root
       - DB_PASSWORD=1001
       - DB_NAME=allowance_db
-    depends_on:
-      - mysql
+    # depends_on:[]
+      # - mysql
     networks:
       - app_network
 
@@ -45,21 +46,23 @@ services:
     networks:
       - app_network
 
-  mysql:
-    image: mysql:8.0-oracle
-    container_name: mysql80
-    environment:
-      MYSQL_ROOT_PASSWORD: 1001
-      MYSQL_DATABASE: allowance_db
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 1001
-    ports:
-      - "5506:3306"
-    volumes:
-      - mysql80_data:/var/lib/mysql
-    restart: unless-stopped
-    networks:
-      - app_network
+  # mysql:
+  #   external:
+  #     name: mysql80
+    # image: mysql:8.0
+    # # container_name: mysql80
+    # environment:
+    #   MYSQL_ROOT_PASSWORD: 1001
+    #   MYSQL_DATABASE: allowance_db
+    #   # MYSQL_USER: root
+    #   # MYSQL_PASSWORD: 1001
+    # ports:
+    #   - "5506:3306"
+    # volumes:
+    #   - mysql80_data:/var/lib/mysql
+    # restart: unless-stopped
+    # networks:
+    #   - app_network
 
 networks:
   app_network:

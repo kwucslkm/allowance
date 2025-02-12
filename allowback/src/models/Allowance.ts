@@ -1,7 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../db';
 import Member from './Member'; // Member 모델을 가져옵니다.
-import {Allow} from '../../../allowfront/ts_ts/types'
+import {Allow} from '../../ts_ts/types';
 
 class Allowances extends Model<Allow> implements Allow {
   public id!: number;
