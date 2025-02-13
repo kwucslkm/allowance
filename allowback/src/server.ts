@@ -22,6 +22,7 @@ app.use(cors(corsOptions));
 
 // 프리플라이트 요청에 대한 추가 설정 (OPTIONS 요청 처리)
 app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Private-Network', 'true');
   if (req.method === 'OPTIONS') {
     res.status(200).end();  // OPTIONS 요청에 대한 응답 처리
   } else {
