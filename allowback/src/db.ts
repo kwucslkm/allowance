@@ -15,7 +15,9 @@ const sequelize = new Sequelize(
     dialect: process.env.DB_DIALECT as any,
     dialectOptions: {
       charset: process.env.DB_CHARSET,
-      timezone: 'Asia/Seoul', // MySQL 서버 시간대 설정
+      // timezone: 'Asia/Seoul', // MySQL 서버 시간대 설정
+      // timezone: 'Etc/GMT-9',
+      timezone: '+09:00',
     },
     define: {
       charset: process.env.DB_CHARSET,
