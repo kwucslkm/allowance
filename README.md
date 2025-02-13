@@ -126,45 +126,35 @@ Containerization: Docker, Docker Compose
 ### Node.js 22.11.0 기반
 FROM node:22.11.0
 
-# 작업 디렉터리 설정
 WORKDIR /app
 
-# package.json 복사 후 의존성 설치
 COPY package.json package-lock.json ./
 RUN npm install
 
-# 전체 소스 코드 복사
 COPY . .
 
-# TypeScript 실행을 위한 ts-node 설치
 RUN npm install -g ts-node
 
-# 서버 실행
 CMD ["npx", "ts-node", "src/server.ts"]
 
 ## front Dockerfile
-# Node.js 22.11.0 기반
+
 FROM node:22.11.0
 
-# 작업 디렉터리 설정
 WORKDIR /app
 
-# package.json 복사 후 의존성 설치
 COPY package.json package-lock.json ./
 RUN npm install
 
-# 전체 소스 코드 복사
 COPY . .
 
-# TypeScript 실행을 위한 ts-node 설치
 RUN npm install -g ts-node
 
-# 서버 실행
 CMD ["npx", "ts-node", "src/server.ts"]
 
 ## docker-compose 
 services:
-  # Nginx 서비스 정의
+
   nginx:
     image: nginx:latest
     container_name: nginx_proxy
@@ -178,7 +168,6 @@ services:
     networks:
       - app_network
 
-  # allowback 서비스 정의 (백엔드)
   allowback:
     build: ./allowback
     ports:
@@ -196,7 +185,6 @@ services:
     networks:
       - app_network
 
-  # allowfront 서비스 정의 (프론트엔드)
   allowfront:
     build: ./allowfront
     ports:
@@ -206,7 +194,6 @@ services:
     networks:
       - app_network
 
-  # MySQL 서비스 정의
   mysql:
     image: mysql:8.0
     container_name: mysql80
