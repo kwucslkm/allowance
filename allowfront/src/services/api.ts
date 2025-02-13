@@ -82,7 +82,7 @@ export const selecLoginCheck = async (
     // 에러가 발생한 경우
     if (axios.isAxiosError(error)) {
       // AxiosError일 경우
-      alert(error.response?.data?.message || 'Unknown error'); //
+      alert(error.response?.data?.message || '로그인 체크 Unknown error'); //
       return false;
       // throw new Error(error.response?.data?.message || 'Unknown error');  // 에러 던지기
     }

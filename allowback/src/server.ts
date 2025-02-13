@@ -32,6 +32,9 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+app.get('/', (req, res) => {
+  res.send('🚀 Allowance Server is running!');
+});
 app.use('/api/allowances', allowancesRouter);
 
 // 환경 변수 PORT 사용
