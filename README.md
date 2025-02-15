@@ -18,6 +18,7 @@ Deployment: Docker, Docker Compose (예정)
 프로젝트 구조
 
 ALLOWANCE
+```
 │── allowback/        # Backend (Node.js, Express, Sequelize)
 │   ├── src/
 │   │   ├── models/   # Sequelize models (Allowance, Members, etc.)
@@ -36,7 +37,7 @@ ALLOWANCE
 │   ├── Dockerfile    # Frontend Docker setup
 │
 │── docker-compose.yml # Docker configuration (MySQL, Backend, Frontend)(진해예정)
-
+```
 
 1. 환경 변수 설정
  .env 파일을 생성하고 필요한 환경 변수를 설정합니다.
