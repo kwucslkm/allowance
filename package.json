@@ -10,7 +10,8 @@
     "@types/axios": "^0.14.4",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.1.2",
+    "@babel/plugin-proposal-private-property-in-object":"^7.22.5"
   },
   "scripts": {
     "start:allowback": "npx ts-node allowback/src/server.ts",

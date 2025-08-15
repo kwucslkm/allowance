@@ -1,13 +1,13 @@
-import express from 'express';
-import Allowances from '../models/Allowance'
-import Member from './../models/Member';
 import bcrypt from 'bcryptjs';
-import bodyParser from 'body-parser';
+import express from 'express';
+import Allowances from '../models/Allowance';
+import Member from './../models/Member';
 
 const router = express.Router();
 
-const app = express();
-app.use(bodyParser.json());
+// const app = express();
+// app.use(bodyParser.json());
+
 router.get('/members', async (_, res) => {
   try{
     const members = await Member.findAll();
@@ -37,9 +37,18 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: 'Failed to create allowance' });
   }
 });
+
 router.post('/memberCreate', async (req, res) => { // 회원 가입
+  // const memberCreate: RequestHandler = async (req, res) => {
   try{
+    console.log("회원가입 요청 body = ",req.body);
     let {nickname, password, birthday, name, city, mobile, userEmail, ori_yearAllowance,yearAllowance } = req.body;
+    // 1. 닉네임 중복 체크
+    const existingMember = await Member.findOne({ where: { nickname } });
+    if (existingMember) {
+      res.status(400).json({ error: '이미 사용 중인 닉네임입니다.' });
+      return ;
+    }
     const salt = await bcrypt.genSalt(10);
     password = await bcrypt.hash(password, salt);
     

@@ -53,27 +53,28 @@ export const joinMemberCreate = async (
       success:true,
       data:response.data
     }
-  }catch(error){
-    if(error instanceof Error){
+  }catch(error: any){
+    if(error.response){
       return{
         success:false,
-        error:error.message
-      }
+        // error:error.message/
+        error:error.response.data.error || '회원가입 처리 중 서버 오류가 발생했습니다.'
+      };
     }
   };
   // 기타 예상치 못한 에러
   return {
     success: false,
-    error: '회원가입 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'
+    error:  '회원가입 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'
   };
 };
-//로그인 
+//로그인
 export const selecLoginCheck = async (
   data: {
     nickname: string;
     password: string;
   }
-) => {  
+) => {
   try {
     const response = await api.post('/allowances/loginCheck', data);
     console.log("api ddan response 2 ",response);

@@ -20,8 +20,12 @@ const JoinForm: React.FC<JoinFormProps> = ({ onSubmit }) => {
     const userEmail = formData.get('userEmail') as string;
     
     const value = formData.get('yearAllowance');
-      const ori_yearAllowance = value ? Number(value as string) : 0 ; 
-      const yearAllowance = value ? Number(value as string) : 0 ;
+    console.log("==== 회원가입 시 정한 연간 용돈 value = ", value);
+    // yearAllowance가 null일 경우 0으로 설정
+      const ori_yearAllowance = value ? Number(value as string) : 0 ;
+      console.log("==== 회원가입 시 정한 연간 용돈 ori_yearAllowance = ", ori_yearAllowance);
+      const yearAllowance = ori_yearAllowance; // 초기 연간 용돈은 ori_yearAllowance로 설정
+      // const yearAllowance = value ? Number(value as string) : 0 ;
     onSubmit(nickname, password, birthday, name, city, mobile, userEmail, ori_yearAllowance, yearAllowance );
   };
   return (

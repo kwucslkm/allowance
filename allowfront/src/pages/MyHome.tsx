@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { updateAllowance, fetchAllowances, createAllowance } from '../services/api';
-import '../styles/home.css';
 import { Allow } from '../../ts_ts/types'; // Allowance 클래스 임포트
+import { createAllowance, fetchAllowances, updateAllowance } from '../services/api';
+import '../styles/home.css';
 // import Table from 'react-bootstrap/Table';/
 
 interface MyHomeProps {
@@ -22,7 +22,7 @@ const MyHome: React.FC<MyHomeProps> = ({reloadPage}) => {
           setMemberId(parsedUserInfo.id); // ID 값 설정
           setOriYearAllow(parsedUserInfo.ori_yearAllowance); //처음 설정 용돈돈
           setRemainAllow(parsedUserInfo.yearAllowance); //남은 연간용돈
-          console.log("돔 그리고  한 남은 용돈  0ㄴ= > ",remainAllow);
+          console.log("돔 그리고 남은 용돈  0 = > ",remainAllow);
           console.log("session memberId 1 = > ", parsedUserInfo.id);
           console.log("session parsedUserInfo.ori_yearAllowance = > ", parsedUserInfo.ori_yearAllowance);
           console.log("session parsedUserInfo.yearAllowance = > ", parsedUserInfo.yearAllowance);

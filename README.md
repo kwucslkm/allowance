@@ -13,7 +13,7 @@ Backend: Node.js, Express, Sequelize
 
 Database: MySQL
 
-Deployment: Docker, Docker Compose (예정)
+
 
 프로젝트 구조
 
@@ -36,7 +36,7 @@ ALLOWANCE
 │   │   ├── styles/   # CSS stylesheets
 │   ├── Dockerfile    # Frontend Docker setup
 │
-│── docker-compose.yml # Docker configuration (MySQL, Backend, Frontend)(진해예정)
+│── docker-compose.yml # Docker configuration (MySQL, Backend, Frontend)(진행예정)
 ```
 
 1. 환경 변수 설정
@@ -52,7 +52,7 @@ npx ts-node src/server.ts
 cd allowfront
 npm start
 
-4. Docker 배포 실행 운영 (예정)
+4. 배포 실행 운영 (예정)
 
 
 설명
@@ -74,6 +74,8 @@ npm start
 용돈 사용 합계 조회
 
 남은 연간 용돈 조회
+등
+계속 진행 중
 
 
 

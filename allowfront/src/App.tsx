@@ -1,15 +1,14 @@
-import React from 'react';
-import {useEffect,useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import { LoginCheckResponse } from '../ts_ts/types';
 import MyHome from './pages/MyHome';
-import Header from './pages/layout/Header';
-import Nav from './pages/layout/Nav';
-import Footer from './pages/layout/Footer';
-import Main from './pages/layout/Main';
-import LoginForm from './pages/control/LoginForm';
-import { selecLoginCheck, joinMemberCreate } from './services/api';
 import JoinForm from './pages/control/JoinForm';
+import LoginForm from './pages/control/LoginForm';
 import MemberList from './pages/control/MemberList';
-import {User, LoginCheckResponse} from '../ts_ts/types';
+import Footer from './pages/layout/Footer';
+import Header from './pages/layout/Header';
+import Main from './pages/layout/Main';
+import Nav from './pages/layout/Nav';
+import { joinMemberCreate, selecLoginCheck } from './services/api';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
   const App: React.FC = () => { 
@@ -38,8 +37,8 @@ import {User, LoginCheckResponse} from '../ts_ts/types';
     }, []);
 
     let mainPageView = null;
-
-    // 로그인 
+    // ////////////////////////////// 로그인 ///////////////////////////////
+    // ////////////////////////////// 로그인 ///////////////////////////////
     const loginCheck = async (nickname: string, password: string) => {
       // 1. 입력 받은 유저이메일과 비밀번호를 서버로 보내서 db에서 체크한 결과값(객체)을 받는다.
       const memberLoginCheck = await selecLoginCheck({
