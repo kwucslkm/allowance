@@ -1,7 +1,8 @@
 import axios from 'axios';
 //import Member from './../../../allowback/src/models/Member';
-
-const api = axios.create({baseURL: 'http://localhost:3001/api',});
+const baseURL = import.meta.env.VITE_API_BASE ?? '/api'
+const api = axios.create({baseURL})
+// const api = axios.create({baseURL: 'http://localhost:3001/api',});
 
 export const findMemberAll = async () => {
   const response = await api.get('/allowances/members');

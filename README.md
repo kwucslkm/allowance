@@ -80,3 +80,24 @@ npm start
 
 
 
+{
+  "dependencies": {
+    "axios": "^1.7.9",
+    "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.7",
+    "react-bootstrap": "^2.10.9"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-private-property-in-object": "^7.27.1",
+    "@testing-library/react": "^16.1.0",
+    "@types/axios": "^0.14.4",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "concurrently": "^9.1.2"
+  },
+  "scripts": {
+    "start:allowback": "npx ts-node allowback/src/server.ts",
+    "start:allowfront": "npm start --prefix allowfront",
+    "start:all": "concurrently \"npm run start:allowback\" \"npm run start:allowfront\""
+  }
+}
