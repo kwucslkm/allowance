@@ -50,7 +50,7 @@ const FormTitle = styled.h2`
 `;
 
 const FormSubtitle = styled.p`
-  margin: 0 0 ${spacing['2xl'}} 0;
+  margin: 0 0 ${spacing['2xl']} 0;
   font-size: ${typography.fontSize.sm};
   color: ${colors.text.secondary};
   text-align: center;
