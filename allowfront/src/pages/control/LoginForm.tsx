@@ -66,6 +66,7 @@ const StyledForm = styled.form`
 
 const InputWrapper = styled.div`
   position: relative;
+  WIDTH: 80%;
 `;
 
 const InputIcon = styled.span`

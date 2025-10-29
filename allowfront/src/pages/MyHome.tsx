@@ -39,11 +39,10 @@ const StatCard = styled(Card)`
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     height: 4px;
-    background: ${({ color }: { color: string }) => color};
+    background: ${(p => (p as { color: string }).color)};
+
   }
 `;
 
@@ -82,6 +81,7 @@ const StyledForm = styled.form`
   display: grid;
   grid-template-columns: 1fr;
   gap: ${spacing.md};
+  
 
   @media (min-width: ${breakpoints.tablet}) {
     grid-template-columns: repeat(2, 1fr);
