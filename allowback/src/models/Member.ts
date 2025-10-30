@@ -1,7 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../db';  
-import Allowance from './Allowance';
-import {User} from '../../ts_ts/types';
+import { User } from '../../ts_ts/types';
+import sequelize from '../db';
 
 class Member extends Model<User> implements User {
   public id!: number;

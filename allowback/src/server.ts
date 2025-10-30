@@ -1,6 +1,6 @@
-import express from 'express';
-import cors from 'cors';  // CORS 패키지 추가
+import cors from 'cors'; // CORS 패키지 추가
 import dotenv from 'dotenv';
+import express from 'express';
 import sequelize from './db';
 import allowancesRouter from './routes/allowancesRouter';
 
@@ -10,7 +10,7 @@ const app = express();
 
 // CORS 설정 (특정 도메인만 허용)
 const corsOptions = {
-  origin: ['http://localhost:3000', 'http://kwcsani.iptime.org:3000'],
+  origin: ['https://allow.kwucsalabs.dedyn.io','http://localhost:3000', 'http://kwcsani.iptime.org:3000'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],

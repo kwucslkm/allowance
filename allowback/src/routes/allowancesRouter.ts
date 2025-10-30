@@ -8,6 +8,16 @@ const router = express.Router();
 // const app = express();
 // app.use(bodyParser.json());
 
+/** ✅ 목록 or 헬스 체크 용 GET 엔드포인트 추가 */
+router.get('/', async (_req, res) => {
+  try {
+    const rows = await Allowances.findAll();   // 필요시 where 조건 넣어도 됨
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch allowances' });
+  }
+});
+
 router.get('/members', async (_, res) => {
   try{
     const members = await Member.findAll();
