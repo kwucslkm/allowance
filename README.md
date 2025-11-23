@@ -13,8 +13,6 @@ Backend: Node.js, Express, Sequelize
 
 Database: MySQL
 
-
-
 프로젝트 구조
 
 ALLOWANCE
@@ -53,8 +51,8 @@ cd allowfront
 npm start
 
 4. 배포 실행 운영 (예정)
-
-
+pm2 start npx --name allowance -- ts-node src/server.ts
+caddy 프록시 사용
 설명
 
 모든 용돈 데이터 조회
